@@ -2031,6 +2031,15 @@ function setItem(key, value){
 }
 function removeItem(key){ try{ localStorage.removeItem(key); }catch{} }
 
+/* 🛡️ safeGet — handle null/undefined/empty array/empty string */
+function safeGet(key, fallback){
+  const val = getItem(key, undefined);
+  if (val === undefined || val === null) return fallback;
+  if (Array.isArray(val) && val.length === 0) return fallback;
+  if (typeof val === 'string' && val.trim() === '') return fallback;
+  return val;
+}
+
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
@@ -2151,15 +2160,15 @@ function compressImage(file, maxSize=600, quality=0.85){
 }
 
 /* ============================================================
-   STATE — default pakai ASSETS kalau localStorage kosong
+   STATE — pakai safeGet, fallback ke ASSETS
    ============================================================ */
 const state = {
-  votes: getItem(STORAGE.votes, 0),
-  supporters: getItem(STORAGE.supporters, []),
-  profile: getItem(STORAGE.profile, ASSETS.profile),
-  schoolLogo: getItem(STORAGE.schoolLogo, ASSETS.schoolLogo),
-  campusLogo: getItem(STORAGE.campusLogo, ASSETS.targetCampus),
-  gallery: getItem(STORAGE.gallery, ASSETS.gallery.slice()),
+  votes: safeGet(STORAGE.votes, 0),
+  supporters: safeGet(STORAGE.supporters, []),
+  profile: safeGet(STORAGE.profile, ASSETS.profile),
+  schoolLogo: safeGet(STORAGE.schoolLogo, ASSETS.schoolLogo),
+  campusLogo: safeGet(STORAGE.campusLogo, ASSETS.targetCampus),
+  gallery: safeGet(STORAGE.gallery, ASSETS.gallery.slice()),
   isAdmin: false
 };
 
@@ -2391,7 +2400,6 @@ document.addEventListener('keydown', e => {
    VOTE FLOW — 1 orang 1 vote
    ============================================================ */
 function openVoteModal(){
-  // 🔒 Blok kalau sudah pernah vote
   if (VoteGuard.hasVoted()){
     toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.');
     return;
@@ -2408,7 +2416,6 @@ $('#voterMsg').addEventListener('input', e => {
 });
 
 function submitVote(){
-  // 🔒 Double check
   if (VoteGuard.hasVoted()){
     toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.');
     closeModal('voteModal');
@@ -2431,13 +2438,12 @@ function submitVote(){
   setItem(STORAGE.votes, state.votes);
   setItem(STORAGE.supporters, state.supporters);
 
-  // 🔒 Tandai user sudah vote
   VoteGuard.markVoted();
 
   closeModal('voteModal');
   renderStats();
   renderSupporters();
-  applyVoteState();  // update tombol jadi "sudah vote"
+  applyVoteState();
   burstConfetti();
   toast('✦', 'Terima kasih sudah vote! 💙');
 }
@@ -2448,12 +2454,11 @@ $('#voterName').addEventListener('keydown', e => {
 });
 
 /* ============================================================
-   🔒 APPLY VOTE STATE — update UI kalau sudah vote
+   🔒 APPLY VOTE STATE
    ============================================================ */
 function applyVoteState(){
   if (!VoteGuard.hasVoted()) return;
 
-  // Semua tombol vote → disabled + label baru
   ['heroVoteBtn', 'voteCtaBtn'].forEach(id => {
     const btn = document.getElementById(id);
     if (btn){
@@ -2694,8 +2699,33 @@ window.addEventListener('offline', updateLiveStatus);
    ============================================================ */
 function init(){
   $('#year').textContent = new Date().getFullYear();
+
+  // 🧹 Auto-cleanup localStorage yang isinya null/empty
+  // Biar fallback ke ASSETS (URL Postimages) selalu jalan
+  ['profile','schoolLogo','campusLogo','gallery'].forEach(k => {
+    const raw = localStorage.getItem(STORAGE[k]);
+    if (raw !== null){
+      try{
+        const val = JSON.parse(raw);
+        if (val === null || val === undefined ||
+            (Array.isArray(val) && val.length === 0) ||
+            (typeof val === 'string' && val.trim() === '')){
+          localStorage.removeItem(STORAGE[k]);
+        }
+      }catch{
+        localStorage.removeItem(STORAGE[k]);
+      }
+    }
+  });
+
+  // Update state setelah cleanup
+  state.profile = safeGet(STORAGE.profile, ASSETS.profile);
+  state.schoolLogo = safeGet(STORAGE.schoolLogo, ASSETS.schoolLogo);
+  state.campusLogo = safeGet(STORAGE.campusLogo, ASSETS.targetCampus);
+  state.gallery = safeGet(STORAGE.gallery, ASSETS.gallery.slice());
+
   renderAll();
-  applyVoteState();  // 🔒 cek status vote saat halaman load
+  applyVoteState();
   setupReveal();
   updateLiveStatus();
   setInterval(() => { if (state.supporters.length) renderSupporters(); }, 60000);
