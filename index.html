@@ -290,6 +290,17 @@ a:hover{ text-decoration:underline; }
 .btn .ico{ font-size:1.05em; line-height:1; }
 .btn-sm{ padding:9px 14px; font-size:13px; border-radius:11px; }
 
+/* ✅ Tombol yang sudah vote */
+.btn.is-done{
+  background:linear-gradient(135deg,#DBEAFE 0%,#BFDBFE 100%) !important;
+  color:#1E3A8A !important;
+  cursor:not-allowed !important;
+  opacity:.95;
+  box-shadow:0 4px 12px rgba(147,197,253,.35) !important;
+  pointer-events:none;
+}
+.btn.is-done::before{ content:"✓ "; margin-right:2px; font-weight:700; }
+
 /* ============================================================
    6. STATS + PROGRESS
    ============================================================ */
@@ -1884,7 +1895,7 @@ a:hover{ text-decoration:underline; }
 
 <script>
 /* ============================================================
-   CONFIG
+   ⚙️ CONFIG
    ============================================================ */
 const CONFIG = {
   ADMIN_PASSWORD: 'Mut2025!',  // ⚠️ Ganti sebelum publish
@@ -1892,6 +1903,77 @@ const CONFIG = {
   ADMIN_CLICK_COUNT: 1
 };
 
+/* ============================================================
+   🖼️ ASSETS — Foto pakai URL Postimages
+   ============================================================ */
+const ASSETS = {
+  profile:    "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
+  schoolLogo: "https://i.postimg.cc/xjBkTKqt/Proyek-Baru-31-FCFEC9D.png",
+  targetCampus: "https://i.postimg.cc/v8C1HWD0/Proyek-Baru-31-51A6A26.png",
+  abroadGroup:  "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
+  gallery: [
+    "https://i.postimg.cc/Mp7zwBjR/IMG-20260923-204947.jpg", // 01
+    "https://i.postimg.cc/52BfJzFJ/IMG-20260923-205016.jpg", // 02
+    "https://i.postimg.cc/CxGw08n3/IMG-20260923-205432.jpg", // 03
+    "https://i.postimg.cc/YC6t7Fmc/IMG-20260923-205115.jpg", // 04
+    "https://i.postimg.cc/mZnLyBsc/IMG-20260923-210008.jpg", // 05
+    "https://i.postimg.cc/wj89n23p/IMG-20260923-205042.jpg"  // 06
+  ]
+};
+
+/* ============================================================
+   🔒 VOTE GUARD — 1 orang = 1 vote
+   ============================================================ */
+const VoteGuard = (() => {
+  const STORAGE_KEY = "bsa_vote_record_v1";
+  const FINGERPRINT_KEY = "bsa_fp_v1";
+
+  function getFingerprint(){
+    let fp = localStorage.getItem(FINGERPRINT_KEY);
+    if (!fp){
+      const raw = [
+        navigator.userAgent,
+        navigator.language,
+        screen.width + "x" + screen.height,
+        new Date().getTimezoneOffset(),
+        Math.random().toString(36).slice(2, 10)
+      ].join("|");
+      try{
+        fp = btoa(unescape(encodeURIComponent(raw))).slice(0, 32);
+      }catch{
+        fp = 'fp_' + Math.random().toString(36).slice(2, 14);
+      }
+      localStorage.setItem(FINGERPRINT_KEY, fp);
+    }
+    return fp;
+  }
+
+  function hasVoted(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return false;
+      const data = JSON.parse(raw);
+      return !!(data && data.voted === true);
+    }catch{ return false; }
+  }
+
+  function markVoted(){
+    const record = {
+      voted: true,
+      at: new Date().toISOString(),
+      fp: getFingerprint()
+    };
+    try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(record)); }catch{}
+  }
+
+  function reset(){ try{ localStorage.removeItem(STORAGE_KEY); }catch{} }
+
+  return { hasVoted, markVoted, getFingerprint, reset };
+})();
+
+/* ============================================================
+   💾 STORAGE KEYS
+   ============================================================ */
 const STORAGE = {
   votes: 'bsa_votes_v1',
   supporters: 'bsa_supporters_v1',
@@ -2069,15 +2151,15 @@ function compressImage(file, maxSize=600, quality=0.85){
 }
 
 /* ============================================================
-   STATE
+   STATE — default pakai ASSETS kalau localStorage kosong
    ============================================================ */
 const state = {
   votes: getItem(STORAGE.votes, 0),
   supporters: getItem(STORAGE.supporters, []),
-  profile: getItem(STORAGE.profile, null),
-  schoolLogo: getItem(STORAGE.schoolLogo, null),
-  campusLogo: getItem(STORAGE.campusLogo, null),
-  gallery: getItem(STORAGE.gallery, []),
+  profile: getItem(STORAGE.profile, ASSETS.profile),
+  schoolLogo: getItem(STORAGE.schoolLogo, ASSETS.schoolLogo),
+  campusLogo: getItem(STORAGE.campusLogo, ASSETS.targetCampus),
+  gallery: getItem(STORAGE.gallery, ASSETS.gallery.slice()),
   isAdmin: false
 };
 
@@ -2107,15 +2189,15 @@ function renderStats(){
 function renderProfile(){
   const frame = $('#photoFrame');
   frame.innerHTML = state.profile
-    ? `<img src="${state.profile}" alt="Foto Muttaqi Faqih Ravid">`
+    ? `<img src="${state.profile}" alt="Foto Muttaqi Faqih Ravid" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\\'photo-placeholder\\'>MFR</div>';">`
     : `<div class="photo-placeholder">MFR</div>`;
 }
 function renderLogos(){
   $('#schoolLogoBox').innerHTML = state.schoolLogo
-    ? `<img src="${state.schoolLogo}" alt="Logo Sekolah">`
+    ? `<img src="${state.schoolLogo}" alt="Logo Sekolah" onerror="this.style.display='none';">`
     : `<div class="logo-fallback">S</div>`;
   $('#campusLogoBox').innerHTML = state.campusLogo
-    ? `<img src="${state.campusLogo}" alt="Logo Kampus">`
+    ? `<img src="${state.campusLogo}" alt="Logo Kampus" onerror="this.style.display='none';">`
     : `<div class="logo-fallback">C</div>`;
 }
 
@@ -2128,8 +2210,15 @@ function renderGallery(){
   const slots = Math.max(6, items.length);
   let html = '';
   for (let i = 0; i < slots; i++){
-    if (items[i]) html += `<div class="gallery-item"><img src="${items[i]}" alt="Foto galeri ${i+1}" loading="lazy"></div>`;
-    else html += `<div class="gallery-item"><div class="gallery-ph"><span class="ph-ico">◫</span>Foto ${i+1}</div></div>`;
+    if (items[i]){
+      html += `<div class="gallery-item">
+        <img src="${items[i]}" alt="Foto galeri ${i+1}" loading="lazy"
+             onerror="this.style.display='none'; this.parentNode.querySelector('.gallery-ph').style.display='flex';">
+        <div class="gallery-ph" style="display:none"><span class="ph-ico">◫</span>Foto ${i+1}</div>
+      </div>`;
+    } else {
+      html += `<div class="gallery-item"><div class="gallery-ph"><span class="ph-ico">◫</span>Foto ${i+1}</div></div>`;
+    }
   }
   el.innerHTML = html;
 }
@@ -2299,9 +2388,14 @@ document.addEventListener('keydown', e => {
 });
 
 /* ============================================================
-   VOTE FLOW
+   VOTE FLOW — 1 orang 1 vote
    ============================================================ */
 function openVoteModal(){
+  // 🔒 Blok kalau sudah pernah vote
+  if (VoteGuard.hasVoted()){
+    toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.');
+    return;
+  }
   $('#voterName').value = '';
   $('#voterMsg').value = '';
   $('#msgCount').textContent = '0';
@@ -2314,6 +2408,13 @@ $('#voterMsg').addEventListener('input', e => {
 });
 
 function submitVote(){
+  // 🔒 Double check
+  if (VoteGuard.hasVoted()){
+    toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.');
+    closeModal('voteModal');
+    return;
+  }
+
   const name = $('#voterName').value.trim().slice(0, 40);
   const msg = $('#voterMsg').value.trim().slice(0, 160);
 
@@ -2330,9 +2431,13 @@ function submitVote(){
   setItem(STORAGE.votes, state.votes);
   setItem(STORAGE.supporters, state.supporters);
 
+  // 🔒 Tandai user sudah vote
+  VoteGuard.markVoted();
+
   closeModal('voteModal');
   renderStats();
   renderSupporters();
+  applyVoteState();  // update tombol jadi "sudah vote"
   burstConfetti();
   toast('✦', 'Terima kasih sudah vote! 💙');
 }
@@ -2341,6 +2446,24 @@ $('#submitVoteBtn').addEventListener('click', submitVote);
 $('#voterName').addEventListener('keydown', e => {
   if (e.key === 'Enter'){ e.preventDefault(); submitVote(); }
 });
+
+/* ============================================================
+   🔒 APPLY VOTE STATE — update UI kalau sudah vote
+   ============================================================ */
+function applyVoteState(){
+  if (!VoteGuard.hasVoted()) return;
+
+  // Semua tombol vote → disabled + label baru
+  ['heroVoteBtn', 'voteCtaBtn'].forEach(id => {
+    const btn = document.getElementById(id);
+    if (btn){
+      btn.classList.add('is-done');
+      btn.innerHTML = '<span class="ico">💙</span> Kamu Sudah Vote';
+      btn.disabled = true;
+      btn.setAttribute('aria-disabled', 'true');
+    }
+  });
+}
 
 /* ============================================================
    SHARE
@@ -2572,6 +2695,7 @@ window.addEventListener('offline', updateLiveStatus);
 function init(){
   $('#year').textContent = new Date().getFullYear();
   renderAll();
+  applyVoteState();  // 🔒 cek status vote saat halaman load
   setupReveal();
   updateLiveStatus();
   setInterval(() => { if (state.supporters.length) renderSupporters(); }, 60000);
