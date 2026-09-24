@@ -2225,9 +2225,12 @@ if (Array.isArray(uploadedGallery) && uploadedGallery.length > 0){
 
 /* ============================================================
    RENDER: STATS + PROGRESS
+   ✅ Votes pakai field `votes` (bisa di-set manual 206)
+   ✅ Supporters dihitung dari jumlah item
    ============================================================ */
 function renderStats(){
-  const votes = state.votes;
+  const votes = state.votes;                       // ← dari field votes (manual, bisa 206)
+  const supporterCount = state.supporters.length;   // ← jumlah supporter
   const target = CONFIG.TARGET;
   const pct = Math.min(100, (votes / target) * 100);
   const remain = Math.max(0, target - votes);
@@ -2235,7 +2238,7 @@ function renderStats(){
   $('#statVotes').textContent = fmt(votes);
   $('#statTarget').textContent = fmt(target);
   $('#statPercent').textContent = pct.toFixed(pct >= 10 ? 0 : 1) + '%';
-  $('#statSupporters').textContent = fmt(state.supporters.length);
+  $('#statSupporters').textContent = fmt(supporterCount);
   $('#progressValue').textContent = `${fmt(votes)} / ${fmt(target)}`;
   $('#progressRemain').textContent = remain > 0 ? `${fmt(remain)} votes lagi` : '🎉 Target tercapai!';
 
@@ -2802,7 +2805,7 @@ function setupFirebaseListeners(){
     console.warn('Votes listener error:', err);
   });
 
-  db.ref('supporters').limitToLast(50).on('value', snap => {
+  db.ref('supporters').limitToLast(100).on('value', snap => {
     const data = snap.val() || {};
     state.supporters = Object.values(data).sort((a,b) => b.ts - a.ts);
     renderSupporters();
