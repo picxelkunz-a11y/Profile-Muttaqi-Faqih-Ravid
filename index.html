@@ -758,6 +758,60 @@ a:hover{ text-decoration:underline; }
 }
 
 /* ============================================================
+   11b. SUPPORTERS — COLLAPSIBLE
+   ============================================================ */
+.supporters-wrap{
+  position:relative;
+  overflow:hidden;
+  transition:max-height .6s cubic-bezier(.22,1,.36,1);
+}
+.supporters-wrap.collapsed{
+  max-height:340px;
+}
+.supporters-wrap.expanded{
+  max-height:5000px;
+}
+.supporters-fade{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:120px;
+  background:linear-gradient(180deg, rgba(246,249,254,0) 0%, var(--bg) 85%);
+  pointer-events:none;
+  opacity:1;
+  transition:opacity .4s ease;
+}
+.supporters-wrap.expanded .supporters-fade{
+  opacity:0;
+}
+.supporters-actions{
+  margin-top:14px;
+  display:flex;
+  justify-content:center;
+}
+#toggleSupporters{
+  max-width:340px;
+  font-weight:600;
+  transition:transform .18s ease, box-shadow .22s ease, background .22s ease;
+}
+#toggleSupporters:hover{
+  background:var(--blue-50);
+  border-color:var(--blue-300);
+  color:var(--blue-700);
+}
+#toggleSupporters .ico{
+  transition:transform .3s ease;
+  display:inline-block;
+}
+#toggleSupporters[aria-expanded="true"] .ico{
+  transform:rotate(180deg);
+}
+
+@media (max-width: 480px){
+  .supporters-wrap.collapsed{ max-height:320px; }
+  .supporters-fade{ height:100px; }
+}
+
+/* ============================================================
    12. THE PEOPLE BEHIND MY JOURNEY
    ============================================================ */
 .journey-section{
@@ -1630,7 +1684,18 @@ a:hover{ text-decoration:underline; }
       <h2 class="section-title">Kata mereka.</h2>
       <p class="section-sub">Pesan-pesan kecil dari orang-orang yang mendukung perjalanan ini.</p>
     </div>
-    <div class="supporters-list" id="supportersList"></div>
+
+    <div class="supporters-wrap collapsed" id="supportersWrap">
+      <div class="supporters-list" id="supportersList"></div>
+      <div class="supporters-fade" aria-hidden="true"></div>
+    </div>
+
+    <div class="supporters-actions">
+      <button class="btn btn-soft btn-block" id="toggleSupporters" type="button" aria-expanded="false" aria-controls="supportersWrap">
+        <span class="ico">👀</span>
+        <span id="toggleSupportersText">Lihat semua dukungan</span>
+      </button>
+    </div>
   </section>
 
   <section class="journey-section reveal" id="journeySection" aria-labelledby="journeyTitle">
@@ -1829,9 +1894,7 @@ a:hover{ text-decoration:underline; }
 <div class="toast-wrap" id="toastWrap"></div>
 <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
 
-<!-- ============================================================
-     FIREBASE SDK (compat mode — biar gampang dipakai)
-     ============================================================ -->
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
 
@@ -1861,19 +1924,47 @@ const firebaseConfig = {
   measurementId: "G-8QG5TQY390"
 };
 
+/* ── Init Firebase dengan retry ── */
 let db = null;
-if (BACKEND_ENABLED && typeof firebase !== 'undefined'){
+
+function initFirebase(){
+  if (!BACKEND_ENABLED) return false;
+  if (typeof firebase === 'undefined'){
+    console.warn('Firebase SDK belum load, coba lagi...');
+    return false;
+  }
   try{
-    firebase.initializeApp(firebaseConfig);
+    if (!firebase.apps.length){
+      firebase.initializeApp(firebaseConfig);
+    }
     db = firebase.database();
     console.log('🔥 Firebase connected');
+    return true;
   }catch(e){
     console.warn('Firebase init error:', e);
+    return false;
   }
 }
 
+initFirebase();
+
+// Kalau gagal, retry 10x tiap 500ms
+let fbRetry = 0;
+const fbTimer = setInterval(() => {
+  if (db || fbRetry >= 10){
+    clearInterval(fbTimer);
+    if (db && typeof setupFirebaseListeners === 'function'){
+      setupFirebaseListeners();
+      updateLiveStatus();
+    }
+    return;
+  }
+  fbRetry++;
+  initFirebase();
+}, 500);
+
 /* ============================================================
-   🖼️ ASSETS — fallback kalau localStorage kosong
+   🖼️ ASSETS — foto default dari Postimages
    ============================================================ */
 const ASSETS = {
   profile:    "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
@@ -2101,17 +2192,36 @@ function compressImage(file, maxSize=600, quality=0.85){
 }
 
 /* ============================================================
-   STATE
+   STATE — Foto SELALU dari ASSETS (anti-hilang di Samsung)
    ============================================================ */
 const state = {
   votes: safeGet(STORAGE.votes, 0),
   supporters: safeGet(STORAGE.supporters, []),
-  profile: safeGet(STORAGE.profile, ASSETS.profile),
-  schoolLogo: safeGet(STORAGE.schoolLogo, ASSETS.schoolLogo),
-  campusLogo: safeGet(STORAGE.campusLogo, ASSETS.targetCampus),
-  gallery: safeGet(STORAGE.gallery, ASSETS.gallery.slice()),
+  profile: ASSETS.profile,
+  schoolLogo: ASSETS.schoolLogo,
+  campusLogo: ASSETS.targetCampus,
+  gallery: ASSETS.gallery.slice(),
   isAdmin: false
 };
+
+// Override dengan upload lokal (kalau ada)
+const uploadedProfile = getItem(STORAGE.profile, null);
+const uploadedSchool = getItem(STORAGE.schoolLogo, null);
+const uploadedCampus = getItem(STORAGE.campusLogo, null);
+const uploadedGallery = getItem(STORAGE.gallery, null);
+
+if (uploadedProfile && typeof uploadedProfile === 'string' && uploadedProfile.length > 100){
+  state.profile = uploadedProfile;
+}
+if (uploadedSchool && typeof uploadedSchool === 'string' && uploadedSchool.length > 100){
+  state.schoolLogo = uploadedSchool;
+}
+if (uploadedCampus && typeof uploadedCampus === 'string' && uploadedCampus.length > 100){
+  state.campusLogo = uploadedCampus;
+}
+if (Array.isArray(uploadedGallery) && uploadedGallery.length > 0){
+  state.gallery = uploadedGallery;
+}
 
 /* ============================================================
    RENDER: STATS + PROGRESS
@@ -2178,15 +2288,32 @@ function renderGallery(){
    ============================================================ */
 function renderSupporters(){
   const el = $('#supportersList');
+  const wrap = $('#supportersWrap');
+  const actions = document.querySelector('.supporters-actions');
   const list = [...state.supporters].sort((a,b) => b.ts - a.ts);
+
   if (list.length === 0){
     el.innerHTML = `
       <div class="supporters-empty" style="grid-column:1/-1">
         <span class="empty-ico">💬</span>
         Belum ada dukungan. Jadi yang pertama!
       </div>`;
+    if (wrap) wrap.classList.remove('collapsed');
+    if (actions) actions.style.display = 'none';
     return;
   }
+
+  if (actions) actions.style.display = '';
+
+  // Kalau supporter ≤ 4 → langsung tampil semua, tombol hide
+  if (list.length <= 4){
+    if (wrap){
+      wrap.classList.remove('collapsed');
+      wrap.classList.add('expanded');
+    }
+    if (actions) actions.style.display = 'none';
+  }
+
   el.innerHTML = list.slice(0, 50).map(s => {
     const initial = (s.name || 'A').trim().charAt(0).toUpperCase() || 'A';
     return `
@@ -2199,6 +2326,34 @@ function renderSupporters(){
         </div>
       </div>`;
   }).join('');
+}
+
+/* ============================================================
+   SUPPORTERS — TOGGLE COLLAPSE / EXPAND
+   ============================================================ */
+function setupSupportersToggle(){
+  const wrap = $('#supportersWrap');
+  const btn = $('#toggleSupporters');
+  const btnText = $('#toggleSupportersText');
+
+  if (!wrap || !btn || !btnText) return;
+
+  btn.addEventListener('click', () => {
+    const isExpanded = wrap.classList.contains('expanded');
+
+    if (isExpanded){
+      wrap.classList.remove('expanded');
+      wrap.classList.add('collapsed');
+      btn.setAttribute('aria-expanded', 'false');
+      btnText.textContent = 'Lihat semua dukungan';
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      wrap.classList.remove('collapsed');
+      wrap.classList.add('expanded');
+      btn.setAttribute('aria-expanded', 'true');
+      btnText.textContent = 'Sembunyikan';
+    }
+  });
 }
 
 /* ============================================================
@@ -2564,11 +2719,11 @@ $('#fileGallery').addEventListener('change', async e => {
 $$('[data-clear]').forEach(btn => {
   btn.addEventListener('click', () => {
     const kind = btn.dataset.clear;
-    if (kind === 'profile'){ state.profile = null; removeItem(STORAGE.profile); renderProfile(); }
-    if (kind === 'school'){ state.schoolLogo = null; removeItem(STORAGE.schoolLogo); renderLogos(); }
-    if (kind === 'campus'){ state.campusLogo = null; removeItem(STORAGE.campusLogo); renderLogos(); }
+    if (kind === 'profile'){ state.profile = ASSETS.profile; removeItem(STORAGE.profile); renderProfile(); }
+    if (kind === 'school'){ state.schoolLogo = ASSETS.schoolLogo; removeItem(STORAGE.schoolLogo); renderLogos(); }
+    if (kind === 'campus'){ state.campusLogo = ASSETS.targetCampus; removeItem(STORAGE.campusLogo); renderLogos(); }
     renderAdminPreviews();
-    status('Data dihapus.', 'ok');
+    status('Data dikembalikan ke default.', 'ok');
   });
 });
 
@@ -2576,7 +2731,10 @@ $('#resetAllBtn').addEventListener('click', () => {
   if (!confirm('Yakin ingin reset SEMUA data?')) return;
   Object.values(STORAGE).forEach(k => removeItem(k));
   state.votes = 0; state.supporters = [];
-  state.profile = null; state.schoolLogo = null; state.campusLogo = null; state.gallery = [];
+  state.profile = ASSETS.profile;
+  state.schoolLogo = ASSETS.schoolLogo;
+  state.campusLogo = ASSETS.targetCampus;
+  state.gallery = ASSETS.gallery.slice();
   renderAll();
   renderAdminPreviews();
   renderGalleryAdmin();
@@ -2635,7 +2793,8 @@ window.addEventListener('offline', updateLiveStatus);
    🔥 FIREBASE REALTIME LISTENERS
    ============================================================ */
 function setupFirebaseListeners(){
-  // Votes count
+  if (!db) return;
+
   db.ref('votes').on('value', snap => {
     state.votes = snap.val() || 0;
     renderStats();
@@ -2643,7 +2802,6 @@ function setupFirebaseListeners(){
     console.warn('Votes listener error:', err);
   });
 
-  // Supporters list (50 terbaru)
   db.ref('supporters').limitToLast(50).on('value', snap => {
     const data = snap.val() || {};
     state.supporters = Object.values(data).sort((a,b) => b.ts - a.ts);
@@ -2662,34 +2820,12 @@ function setupFirebaseListeners(){
 function init(){
   $('#year').textContent = new Date().getFullYear();
 
-  // Cleanup localStorage null/empty
-  ['profile','schoolLogo','campusLogo','gallery'].forEach(k => {
-    const raw = localStorage.getItem(STORAGE[k]);
-    if (raw !== null){
-      try{
-        const val = JSON.parse(raw);
-        if (val === null || val === undefined ||
-            (Array.isArray(val) && val.length === 0) ||
-            (typeof val === 'string' && val.trim() === '')){
-          localStorage.removeItem(STORAGE[k]);
-        }
-      }catch{
-        localStorage.removeItem(STORAGE[k]);
-      }
-    }
-  });
-
-  state.profile = safeGet(STORAGE.profile, ASSETS.profile);
-  state.schoolLogo = safeGet(STORAGE.schoolLogo, ASSETS.schoolLogo);
-  state.campusLogo = safeGet(STORAGE.campusLogo, ASSETS.targetCampus);
-  state.gallery = safeGet(STORAGE.gallery, ASSETS.gallery.slice());
-
   renderAll();
   applyVoteState();
   setupReveal();
+  setupSupportersToggle();
   updateLiveStatus();
 
-  // 🔥 Firebase listeners
   if (db){
     setupFirebaseListeners();
   }
