@@ -163,10 +163,11 @@ a:hover{ text-decoration:underline; }
   border:1px solid var(--line);
   color:var(--ink-2);
   box-shadow:var(--shadow-xs);
+  transition:.25s;
 }
 .live-badge .pulse{
   width:7px; height:7px; border-radius:50%;
-  background:#10B981;
+  background:#10B981; position:relative; flex:0 0 auto;
   box-shadow:0 0 0 0 rgba(16,185,129,.5);
   animation:pulseRing 2s infinite;
 }
@@ -175,6 +176,8 @@ a:hover{ text-decoration:underline; }
   70%{ box-shadow:0 0 0 8px rgba(16,185,129,0); }
   100%{ box-shadow:0 0 0 0 rgba(16,185,129,0); }
 }
+.live-badge.offline{ color:#92400E; border-color:#FDE68A; background:#FFFBEB; }
+.live-badge.offline .pulse{ background:#F59E0B; animation:none; }
 
 /* ============================================================
    4. HERO
@@ -394,7 +397,7 @@ a:hover{ text-decoration:underline; }
 }
 .progress-foot strong{ color:var(--ink-2); font-weight:600; }
 
-/* Gold text untuk "Unggulan" */
+/* ===== GOLD TEXT ===== */
 .gold-text{
   background:var(--grad-gold);
   -webkit-background-clip:text;
@@ -493,6 +496,10 @@ a:hover{ text-decoration:underline; }
   max-width:100%;
 }
 .chip .chip-ico{ font-size:14px; line-height:1; }
+.chip.school-chip img{
+  width:18px; height:18px; object-fit:contain; border-radius:4px;
+}
+.chip.school-chip .fallback{ font-size:13px; }
 .profile-quote{
   font-family:var(--font-display);
   font-size:15px; line-height:1.6; font-weight:500;
@@ -698,7 +705,125 @@ a:hover{ text-decoration:underline; }
 }
 
 /* ============================================================
-   11. THE PEOPLE BEHIND MY JOURNEY
+   11. SUPPORTERS
+   ============================================================ */
+.supporters-list{
+  display:grid;
+  grid-template-columns:1fr; gap:10px;
+}
+@media (min-width:640px){
+  .supporters-list{ grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
+}
+@media (min-width:960px){
+  .supporters-list{ grid-template-columns:repeat(3, minmax(0,1fr)); }
+}
+.sup-item{
+  display:flex; gap:12px; align-items:flex-start;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:14px 16px;
+  box-shadow:var(--shadow-xs);
+  transition:border-color .22s, transform .22s;
+}
+.sup-item:hover{ border-color:var(--blue-200); transform:translateY(-1px); }
+.sup-avatar{
+  flex:0 0 auto;
+  width:36px; height:36px;
+  border-radius:10px;
+  background:var(--grad-primary);
+  display:flex; align-items:center; justify-content:center;
+  color:#fff;
+  font-family:var(--font-display);
+  font-weight:600; font-size:14px;
+  letter-spacing:-.02em;
+  box-shadow:0 4px 10px rgba(37,99,235,.22);
+}
+.sup-body{ min-width:0; flex:1 1 auto; }
+.sup-name{
+  font-family:var(--font-display);
+  font-size:13.5px; font-weight:600;
+  color:var(--ink); margin:0 0 2px;
+  letter-spacing:-.01em; word-break:break-word;
+}
+.sup-msg{
+  font-size:13px; color:var(--ink-3);
+  line-height:1.5; margin:0; word-break:break-word;
+}
+.sup-msg:empty{ display:none; }
+.sup-time{
+  font-size:11px; color:var(--ink-5);
+  font-weight:500; margin-top:4px;
+  letter-spacing:.02em;
+}
+.supporters-empty{
+  text-align:center; padding:40px 20px;
+  color:var(--ink-4); font-size:14px;
+  border:1px dashed var(--line-2);
+  border-radius:var(--radius);
+  background:var(--surface);
+}
+.supporters-empty .empty-ico{
+  font-size:28px; margin-bottom:8px;
+  display:block; opacity:.55;
+}
+
+/* ============================================================
+   11b. SUPPORTERS — COLLAPSIBLE
+   ============================================================ */
+.supporters-wrap{
+  position:relative;
+  overflow:hidden;
+  transition:max-height .6s cubic-bezier(.22,1,.36,1);
+}
+.supporters-wrap.collapsed{
+  max-height:340px;
+}
+.supporters-wrap.expanded{
+  max-height:5000px;
+}
+.supporters-fade{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  height:120px;
+  background:linear-gradient(180deg, rgba(246,249,254,0) 0%, var(--bg) 85%);
+  pointer-events:none;
+  opacity:1;
+  transition:opacity .4s ease;
+}
+.supporters-wrap.expanded .supporters-fade{
+  opacity:0;
+}
+.supporters-actions{
+  margin-top:14px;
+  display:flex;
+  justify-content:center;
+}
+#toggleSupporters{
+  max-width:340px;
+  font-weight:600;
+  transition:transform .18s ease, box-shadow .22s ease, background .22s ease;
+}
+#toggleSupporters:hover{
+  background:var(--blue-50);
+  border-color:var(--blue-300);
+  color:var(--blue-700);
+}
+#toggleSupporters .ico{
+  transition:transform .3s ease;
+  display:inline-block;
+}
+#toggleSupporters[aria-expanded="true"] .ico{
+  transform:rotate(180deg);
+}
+
+@media (max-width: 480px){
+  .supporters-wrap.collapsed{ max-height:320px; }
+  .supporters-fade{ height:100px; }
+}
+
+/* ============================================================
+   12. THE PEOPLE BEHIND MY JOURNEY
    ============================================================ */
 .journey-section{
   position:relative;
@@ -839,6 +964,7 @@ a:hover{ text-decoration:underline; }
   border-radius:var(--radius-sm);
   text-align:center;
 }
+.journey-mention strong{ color:var(--blue-700); font-weight:600; }
 .journey-divider{
   display:flex;
   align-items:center;
@@ -1114,7 +1240,7 @@ a:hover{ text-decoration:underline; }
 }
 
 /* ============================================================
-   12. FOOTER
+   13. FOOTER
    ============================================================ */
 .footer{
   position:relative; z-index:1;
@@ -1145,9 +1271,10 @@ a:hover{ text-decoration:underline; }
   user-select:none;
 }
 .admin-trigger:hover{ opacity:1; color:var(--blue-600); border-color:var(--blue-200); }
+.admin-trigger.active{ opacity:1; color:var(--blue-600); border-color:var(--blue-300); background:var(--blue-50); }
 
 /* ============================================================
-   13. MODAL
+   14. MODAL
    ============================================================ */
 .modal{
   position:fixed; inset:0; z-index:100;
@@ -1240,7 +1367,7 @@ a:hover{ text-decoration:underline; }
 .field .error{ font-size:12.5px; color:#DC2626; margin-top:6px; font-weight:500; }
 
 /* ============================================================
-   14. ADMIN
+   15. ADMIN
    ============================================================ */
 .admin-section{
   padding:18px 24px;
@@ -1329,7 +1456,7 @@ a:hover{ text-decoration:underline; }
 .admin-status.err{ background:#FEF2F2; color:#991B1B; border:1px solid #FECACA; }
 
 /* ============================================================
-   15. TOAST
+   16. TOAST
    ============================================================ */
 .toast-wrap{
   position:fixed;
@@ -1361,12 +1488,12 @@ a:hover{ text-decoration:underline; }
 }
 
 /* ============================================================
-   16. CONFETTI
+   17. CONFETTI
    ============================================================ */
 .confetti-canvas{ position:fixed; inset:0; z-index:150; pointer-events:none; }
 
 /* ============================================================
-   17. REVEAL
+   18. REVEAL
    ============================================================ */
 .reveal{
   opacity:0; transform:translateY(16px);
@@ -1375,7 +1502,7 @@ a:hover{ text-decoration:underline; }
 .reveal.in{ opacity:1; transform:none; }
 
 /* ============================================================
-   18. REDUCED MOTION
+   19. REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{
@@ -1452,7 +1579,9 @@ a:hover{ text-decoration:underline; }
       </div>
       <div class="stat-card">
         <div class="stat-ico">🏆</div>
-        <div class="stat-num" style="font-size:clamp(16px, 3vw, 20px); line-height:1.2;">Murid <span class="gold-text">Unggulan</span></div>
+        <div class="stat-num" style="font-size:clamp(16px, 3.2vw, 22px); line-height:1.2; padding-top:2px;">
+          Murid <span class="gold-text">Unggulan</span>
+        </div>
         <div class="stat-label">Predikat</div>
       </div>
     </div>
@@ -1495,7 +1624,7 @@ a:hover{ text-decoration:underline; }
         <div class="profile-meta">
           <span class="chip"><span class="chip-ico">🎓</span> Pelajar Indonesia</span>
           <span class="chip"><span class="chip-ico">🌏</span> Study Abroad Candidate</span>
-          <span class="chip"><span class="chip-ico">🏫</span> SEKOLAH WASKITO</span>
+          <span class="chip" id="chipSchool"><span class="chip-ico">🏫</span> <span id="chipSchoolText">Sekolah</span></span>
         </div>
         <p class="profile-quote">
           "Perjalanan jauh dimulai dari satu langkah kecil — dan langkah itu bisa dimulai dari satu vote dari kamu."
@@ -1559,6 +1688,26 @@ a:hover{ text-decoration:underline; }
           <span>🔒</span> Data vote tersimpan aman &amp; tidak dipublikasikan.
         </div>
       </div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div class="section-head">
+      <span class="section-eyebrow">Dinding Dukungan</span>
+      <h2 class="section-title">Kata mereka.</h2>
+      <p class="section-sub">Pesan-pesan kecil dari orang-orang yang mendukung perjalanan ini.</p>
+    </div>
+
+    <div class="supporters-wrap collapsed" id="supportersWrap">
+      <div class="supporters-list" id="supportersList"></div>
+      <div class="supporters-fade" aria-hidden="true"></div>
+    </div>
+
+    <div class="supporters-actions">
+      <button class="btn btn-soft btn-block" id="toggleSupporters" type="button" aria-expanded="false" aria-controls="supportersWrap">
+        <span class="ico">👀</span>
+        <span id="toggleSupportersText">Lihat semua dukungan</span>
+      </button>
     </div>
   </section>
 
@@ -1758,6 +1907,9 @@ a:hover{ text-decoration:underline; }
 <div class="toast-wrap" id="toastWrap"></div>
 <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
 
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
 <script>
 const CONFIG = {
   ADMIN_PASSWORD: 'Mut2025!',
@@ -1765,11 +1917,39 @@ const CONFIG = {
   ADMIN_CLICK_COUNT: 1
 };
 
+const BACKEND_ENABLED = true;
+const firebaseConfig = {
+  apiKey: "AIzaSyAq2eF2Dy2ZcHpsYv8XdNTut5tjsYqpmg0",
+  authDomain: "profile-muttaqi15.firebaseapp.com",
+  databaseURL: "https://profile-muttaqi15-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "profile-muttaqi15",
+  storageBucket: "profile-muttaqi15.firebasestorage.app",
+  messagingSenderId: "113332255844",
+  appId: "1:113332255844:web:8d66cce61ddd4ac0b33371",
+  measurementId: "G-8QG5TQY390"
+};
+
+let db = null;
+function initFirebase(){
+  if (!BACKEND_ENABLED || typeof firebase === 'undefined') return false;
+  try{
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    db = firebase.database();
+    console.log('🔥 Firebase connected');
+    return true;
+  }catch(e){ console.warn('Firebase init error:', e); return false; }
+}
+initFirebase();
+let fbRetry = 0;
+const fbTimer = setInterval(() => {
+  if (db || fbRetry >= 10){ clearInterval(fbTimer); return; }
+  fbRetry++; initFirebase();
+}, 500);
+
 const ASSETS = {
-  profile:    "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
+  profile: "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
   schoolLogo: "https://i.postimg.cc/xjBkTKqt/Proyek-Baru-31-FCFEC9D.png",
   targetCampus: "https://i.postimg.cc/v8C1HWD0/Proyek-Baru-31-51A6A26.png",
-  abroadGroup:  "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
   gallery: [
     "https://i.postimg.cc/Mp7zwBjR/IMG-20260923-204947.jpg",
     "https://i.postimg.cc/52BfJzFJ/IMG-20260923-205016.jpg",
@@ -1802,8 +1982,7 @@ const VoteGuard = (() => {
   function markVoted(){
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({voted:true, at:new Date().toISOString(), fp:getFingerprint()})); }catch{}
   }
-  function reset(){ try{ localStorage.removeItem(STORAGE_KEY); }catch{} }
-  return { hasVoted, markVoted, getFingerprint, reset };
+  return { hasVoted, markVoted, getFingerprint };
 })();
 
 const STORAGE = {
@@ -1829,8 +2008,7 @@ function getItem(key, fallback){
   try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }catch{ return fallback; }
 }
 function setItem(key, value){
-  try{ localStorage.setItem(key, JSON.stringify(value)); return true; }
-  catch(e){ console.warn('Storage full', e); toast('⚠️','Penyimpanan penuh. Coba kurangi ukuran foto.'); return false; }
+  try{ localStorage.setItem(key, JSON.stringify(value)); return true; }catch(e){ console.warn(e); return false; }
 }
 function removeItem(key){ try{ localStorage.removeItem(key); }catch{} }
 
@@ -1845,6 +2023,19 @@ function safeGet(key, fallback){
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
+function timeAgo(ts){
+  const s = Math.floor((Date.now() - ts)/1000);
+  if (s < 60) return 'baru saja';
+  const m = Math.floor(s/60);
+  if (m < 60) return `${m} menit lalu`;
+  const h = Math.floor(m/60);
+  if (h < 24) return `${h} jam lalu`;
+  const d = Math.floor(h/24);
+  if (d < 30) return `${d} hari lalu`;
+  const mo = Math.floor(d/30);
+  if (mo < 12) return `${mo} bulan lalu`;
+  return `${Math.floor(mo/12)} tahun lalu`;
+}
 
 function toast(icon, msg, duration=2800, variant=''){
   const wrap = $('#toastWrap');
@@ -1852,7 +2043,10 @@ function toast(icon, msg, duration=2800, variant=''){
   el.className = 'toast' + (variant ? ' ' + variant : '');
   el.innerHTML = `<span class="toast-ico">${icon}</span><span>${escapeHtml(msg)}</span>`;
   wrap.appendChild(el);
-  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 300); }, duration);
+  setTimeout(() => {
+    el.classList.add('out');
+    setTimeout(() => el.remove(), 300);
+  }, duration);
 }
 
 function burstConfetti(){
@@ -1936,12 +2130,21 @@ function compressImage(file, maxSize=600, quality=0.85){
 const state = {
   votes: safeGet(STORAGE.votes, 0),
   supporters: safeGet(STORAGE.supporters, []),
-  profile: safeGet(STORAGE.profile, ASSETS.profile),
-  schoolLogo: safeGet(STORAGE.schoolLogo, ASSETS.schoolLogo),
-  campusLogo: safeGet(STORAGE.campusLogo, ASSETS.targetCampus),
-  gallery: safeGet(STORAGE.gallery, ASSETS.gallery.slice()),
+  profile: ASSETS.profile,
+  schoolLogo: ASSETS.schoolLogo,
+  campusLogo: ASSETS.targetCampus,
+  gallery: ASSETS.gallery.slice(),
   isAdmin: false
 };
+
+const uploadedProfile = getItem(STORAGE.profile, null);
+const uploadedSchool = getItem(STORAGE.schoolLogo, null);
+const uploadedCampus = getItem(STORAGE.campusLogo, null);
+const uploadedGallery = getItem(STORAGE.gallery, null);
+if (uploadedProfile && typeof uploadedProfile === 'string' && uploadedProfile.length > 100) state.profile = uploadedProfile;
+if (uploadedSchool && typeof uploadedSchool === 'string' && uploadedSchool.length > 100) state.schoolLogo = uploadedSchool;
+if (uploadedCampus && typeof uploadedCampus === 'string' && uploadedCampus.length > 100) state.campusLogo = uploadedCampus;
+if (Array.isArray(uploadedGallery) && uploadedGallery.length > 0) state.gallery = uploadedGallery;
 
 function renderStats(){
   const votes = state.votes;
@@ -1973,7 +2176,6 @@ function renderLogos(){
     ? `<img src="${state.campusLogo}" alt="Logo Kampus" onerror="this.style.display='none';">`
     : `<div class="logo-fallback">C</div>`;
 }
-
 function renderGallery(){
   const el = $('#gallery');
   const items = state.gallery;
@@ -1992,7 +2194,70 @@ function renderGallery(){
   }
   el.innerHTML = html;
 }
+function renderSupporters(){
+  const el = $('#supportersList');
+  const wrap = $('#supportersWrap');
+  const actions = document.querySelector('.supporters-actions');
+  const list = [...state.supporters].sort((a,b) => b.ts - a.ts);
 
+  if (list.length === 0){
+    el.innerHTML = `
+      <div class="supporters-empty" style="grid-column:1/-1">
+        <span class="empty-ico">💬</span>
+        Belum ada dukungan. Jadi yang pertama!
+      </div>`;
+    if (wrap) wrap.classList.remove('collapsed');
+    if (actions) actions.style.display = 'none';
+    return;
+  }
+
+  if (actions) actions.style.display = '';
+
+  if (list.length <= 4){
+    if (wrap){
+      wrap.classList.remove('collapsed');
+      wrap.classList.add('expanded');
+    }
+    if (actions) actions.style.display = 'none';
+  }
+
+  el.innerHTML = list.slice(0, 50).map(s => {
+    const initial = (s.name || 'A').trim().charAt(0).toUpperCase() || 'A';
+    return `
+      <div class="sup-item">
+        <div class="sup-avatar">${initial}</div>
+        <div class="sup-body">
+          <p class="sup-name">${escapeHtml(s.name || 'Anonim')}</p>
+          ${s.msg ? `<p class="sup-msg">${escapeHtml(s.msg)}</p>` : ''}
+          <div class="sup-time">${timeAgo(s.ts)}</div>
+        </div>
+      </div>`;
+  }).join('');
+}
+function setupSupportersToggle(){
+  const wrap = $('#supportersWrap');
+  const btn = $('#toggleSupporters');
+  const btnText = $('#toggleSupportersText');
+
+  if (!wrap || !btn || !btnText) return;
+
+  btn.addEventListener('click', () => {
+    const isExpanded = wrap.classList.contains('expanded');
+
+    if (isExpanded){
+      wrap.classList.remove('expanded');
+      wrap.classList.add('collapsed');
+      btn.setAttribute('aria-expanded', 'false');
+      btnText.textContent = 'Lihat semua dukungan';
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      wrap.classList.remove('collapsed');
+      wrap.classList.add('expanded');
+      btn.setAttribute('aria-expanded', 'true');
+      btnText.textContent = 'Sembunyikan';
+    }
+  });
+}
 function renderJourney(){
   const grid = $('#journeyGrid');
   if (!grid) return;
@@ -2023,7 +2288,6 @@ function renderJourney(){
     });
   });
 }
-
 let journeyTapLock = false;
 function onJourneyCardTap(card){
   if (journeyTapLock) return;
@@ -2033,25 +2297,20 @@ function onJourneyCardTap(card){
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   card.classList.add('is-active');
   setTimeout(() => card.classList.remove('is-active'), 900);
-
   if (!reduceMotion) heartBurst(card);
   toast('🎉', `Thank you for being part of my journey. 🕺🏻✨`, 2600, 'warm');
 }
-
 function heartBurst(card){
   const rect = card.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
   const emojis = ['💙','🎉','🫶','🕺🏻','🎉'];
-  const count = 12;
-
-  for (let i = 0; i < count; i++){
+  for (let i = 0; i < 12; i++){
     const el = document.createElement('span');
     el.className = 'heart-particle';
     el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     el.setAttribute('aria-hidden', 'true');
-
-    const angle = (Math.PI * 2 * i) / count + (Math.random() - .5) * .6;
+    const angle = (Math.PI * 2 * i) / 12 + (Math.random() - .5) * .6;
     const dist = 70 + Math.random() * 60;
     el.style.left = cx + 'px';
     el.style.top = cy + 'px';
@@ -2059,17 +2318,16 @@ function heartBurst(card){
     el.style.setProperty('--dy', (Math.sin(angle) * dist - 40).toFixed(1) + 'px');
     el.style.setProperty('--rot', ((Math.random() - .5) * 60).toFixed(1) + 'deg');
     el.style.fontSize = (12 + Math.random() * 10).toFixed(1) + 'px';
-
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 1400);
   }
 }
-
 function renderAll(){
   renderStats();
   renderProfile();
   renderLogos();
   renderGallery();
+  renderSupporters();
   renderJourney();
 }
 
@@ -2097,37 +2355,57 @@ function openVoteModal(){
   openModal('voteModal');
   setTimeout(() => $('#voterName').focus(), 250);
 }
-
 $('#voterMsg').addEventListener('input', e => { $('#msgCount').textContent = e.target.value.length; });
 
-function submitVote(){
-  if (VoteGuard.hasVoted()){ toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.'); closeModal('voteModal'); return; }
+async function submitVote(){
+  if (VoteGuard.hasVoted()){
+    toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.');
+    closeModal('voteModal');
+    return;
+  }
 
   const name = $('#voterName').value.trim().slice(0, 40);
   const msg = $('#voterMsg').value.trim().slice(0, 160);
 
-  state.votes += 1;
   const supporter = {
     id: 's_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
     name: name || 'Anonim',
     msg: msg,
-    ts: Date.now()
+    ts: Date.now(),
+    fp: VoteGuard.getFingerprint()
   };
-  state.supporters.push(supporter);
-  if (state.supporters.length > 200) state.supporters = state.supporters.slice(-200);
 
-  setItem(STORAGE.votes, state.votes);
-  setItem(STORAGE.supporters, state.supporters);
+  const btn = $('#submitVoteBtn');
+  const originalText = btn.innerHTML;
+  btn.disabled = true;
+  btn.innerHTML = '⏳ Mengirim...';
 
-  VoteGuard.markVoted();
-
-  closeModal('voteModal');
-  renderStats();
-  applyVoteState();
-  burstConfetti();
-  toast('✦', 'Terima kasih sudah vote! 💙');
+  try{
+    if (db){
+      await db.ref('supporters/' + supporter.id).set(supporter);
+      await db.ref('votes').transaction(v => (v || 0) + 1);
+    } else {
+      state.votes += 1;
+      state.supporters.push(supporter);
+      if (state.supporters.length > 200) state.supporters = state.supporters.slice(-200);
+      setItem(STORAGE.votes, state.votes);
+      setItem(STORAGE.supporters, state.supporters);
+      renderStats();
+      renderSupporters();
+    }
+    VoteGuard.markVoted();
+    closeModal('voteModal');
+    applyVoteState();
+    burstConfetti();
+    toast('✦', 'Terima kasih sudah vote! 💙');
+  }catch(err){
+    console.error(err);
+    toast('⚠️', 'Gagal mengirim. Coba lagi ya.');
+  }finally{
+    btn.disabled = false;
+    btn.innerHTML = originalText;
+  }
 }
-
 $('#submitVoteBtn').addEventListener('click', submitVote);
 $('#voterName').addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); submitVote(); } });
 
@@ -2163,23 +2441,19 @@ async function sharePage(){
 
 let adminClickCount = 0;
 let adminClickTimer = null;
-
 $('#adminTrigger').addEventListener('click', () => {
   if (state.isAdmin){ openAdminPanel(); return; }
   adminClickCount++;
   clearTimeout(adminClickTimer);
   adminClickTimer = setTimeout(() => { adminClickCount = 0; }, 1200);
   if (adminClickCount >= CONFIG.ADMIN_CLICK_COUNT){ adminClickCount = 0; openLogin(); }
-  else { toast('ℹ️', `Klik ${CONFIG.ADMIN_CLICK_COUNT - adminClickCount}x lagi untuk admin`, 1500); }
 });
-
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')){
     e.preventDefault();
     state.isAdmin ? openAdminPanel() : openLogin();
   }
 });
-
 function openLogin(){
   $('#adminPass').value = '';
   $('#loginError').style.display = 'none';
@@ -2188,7 +2462,6 @@ function openLogin(){
 }
 $('#loginBtn').addEventListener('click', tryLogin);
 $('#adminPass').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
-
 function tryLogin(){
   const pass = $('#adminPass').value;
   if (pass === CONFIG.ADMIN_PASSWORD){
@@ -2209,7 +2482,6 @@ $('#logoutBtn').addEventListener('click', () => {
   closeModal('adminModal');
   toast('ℹ️', 'Kamu sudah logout dari admin.');
 });
-
 function openAdminPanel(){
   renderAdminPreviews();
   renderGalleryAdmin();
@@ -2251,7 +2523,6 @@ function status(msg, type){
   clearTimeout(el._t);
   el._t = setTimeout(() => { el.className = 'admin-status'; }, 3200);
 }
-
 async function handleSingleUpload(file, kind, maxSize){
   try{
     const data = await compressImage(file, maxSize, 0.85);
@@ -2262,13 +2533,12 @@ async function handleSingleUpload(file, kind, maxSize){
     status('Berhasil diupload!', 'ok');
   }catch(err){ status('Gagal: ' + err.message, 'err'); }
 }
-
 $('#fileProfile').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; handleSingleUpload(f, 'profile', 600); e.target.value = ''; });
 $('#fileSchool').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; handleSingleUpload(f, 'school', 500); e.target.value = ''; });
 $('#fileCampus').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; handleSingleUpload(f, 'campus', 500); e.target.value = ''; });
 $('#fileGallery').addEventListener('change', async e => {
   const files = [...e.target.files].slice(0, 8 - state.gallery.length);
-  if (files.length === 0){ status('Galeri penuh (maks 8 foto).', 'err'); e.target.value = ''; return; }
+  if (files.length === 0){ status('Galeri penuh.', 'err'); e.target.value = ''; return; }
   for (const f of files){
     try{ state.gallery.push(await compressImage(f, 700, 0.82)); }catch(err){ console.warn(err); }
   }
@@ -2278,23 +2548,24 @@ $('#fileGallery').addEventListener('change', async e => {
   status(`${files.length} foto ditambahkan.`, 'ok');
   e.target.value = '';
 });
-
 $$('[data-clear]').forEach(btn => {
   btn.addEventListener('click', () => {
     const kind = btn.dataset.clear;
-    if (kind === 'profile'){ state.profile = null; removeItem(STORAGE.profile); renderProfile(); }
-    if (kind === 'school'){ state.schoolLogo = null; removeItem(STORAGE.schoolLogo); renderLogos(); }
-    if (kind === 'campus'){ state.campusLogo = null; removeItem(STORAGE.campusLogo); renderLogos(); }
+    if (kind === 'profile'){ state.profile = ASSETS.profile; removeItem(STORAGE.profile); renderProfile(); }
+    if (kind === 'school'){ state.schoolLogo = ASSETS.schoolLogo; removeItem(STORAGE.schoolLogo); renderLogos(); }
+    if (kind === 'campus'){ state.campusLogo = ASSETS.targetCampus; removeItem(STORAGE.campusLogo); renderLogos(); }
     renderAdminPreviews();
-    status('Data dihapus.', 'ok');
+    status('Data dikembalikan ke default.', 'ok');
   });
 });
-
 $('#resetAllBtn').addEventListener('click', () => {
-  if (!confirm('Yakin ingin reset SEMUA data? Tindakan ini tidak bisa dibatalkan.')) return;
+  if (!confirm('Yakin ingin reset SEMUA data?')) return;
   Object.values(STORAGE).forEach(k => removeItem(k));
   state.votes = 0; state.supporters = [];
-  state.profile = null; state.schoolLogo = null; state.campusLogo = null; state.gallery = [];
+  state.profile = ASSETS.profile;
+  state.schoolLogo = ASSETS.schoolLogo;
+  state.campusLogo = ASSETS.targetCampus;
+  state.gallery = ASSETS.gallery.slice();
   renderAll();
   renderAdminPreviews();
   renderGalleryAdmin();
@@ -2303,10 +2574,16 @@ $('#resetAllBtn').addEventListener('click', () => {
 
 function setupReveal(){
   const els = $$('.reveal');
-  if (!('IntersectionObserver' in window)){ els.forEach(el => el.classList.add('in')); return; }
+  if (!('IntersectionObserver' in window)){
+    els.forEach(el => el.classList.add('in'));
+    return;
+  }
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
-      if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
+      if (en.isIntersecting){
+        en.target.classList.add('in');
+        io.unobserve(en.target);
+      }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   els.forEach(el => io.observe(el));
@@ -2320,11 +2597,29 @@ $('#voteShareBtn').addEventListener('click', sharePage);
 function updateLiveStatus(){
   const badge = $('#liveBadge');
   const text = $('#liveText');
-  if (navigator.onLine){ badge.classList.remove('offline'); text.textContent = 'Live counting'; }
+  if (db){ badge.classList.remove('offline'); text.textContent = '🔥 Realtime'; }
+  else if (navigator.onLine){ badge.classList.remove('offline'); text.textContent = 'Live counting'; }
   else { badge.classList.add('offline'); text.textContent = 'Offline'; }
 }
 window.addEventListener('online', updateLiveStatus);
 window.addEventListener('offline', updateLiveStatus);
+
+function setupFirebaseListeners(){
+  if (!db) return;
+
+  db.ref('votes').on('value', snap => {
+    state.votes = snap.val() || 0;
+    renderStats();
+  }, err => { console.warn('Votes listener error:', err); });
+
+  db.ref('supporters').limitToLast(100).on('value', snap => {
+    const data = snap.val() || {};
+    state.supporters = Object.values(data).sort((a,b) => b.ts - a.ts);
+    renderSupporters();
+  }, err => { console.warn('Supporters listener error:', err); });
+
+  console.log('🔥 Realtime listeners aktif');
+}
 
 function init(){
   $('#year').textContent = new Date().getFullYear();
@@ -2334,7 +2629,9 @@ function init(){
     if (raw !== null){
       try{
         const val = JSON.parse(raw);
-        if (val === null || val === undefined || (Array.isArray(val) && val.length === 0) || (typeof val === 'string' && val.trim() === '')){
+        if (val === null || val === undefined ||
+            (Array.isArray(val) && val.length === 0) ||
+            (typeof val === 'string' && val.trim() === '')){
           localStorage.removeItem(STORAGE[k]);
         }
       }catch{ localStorage.removeItem(STORAGE[k]); }
@@ -2349,7 +2646,12 @@ function init(){
   renderAll();
   applyVoteState();
   setupReveal();
+  setupSupportersToggle();
   updateLiveStatus();
+
+  if (db){
+    setupFirebaseListeners();
+  }
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
 else init();
