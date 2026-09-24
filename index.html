@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="theme-color" content="#F6F9FE" />
 <title>Best Student Abroad Nomination — Muttaqi Faqih Ravid</title>
-<meta name="description" content="Dukung Muttaqi Faqih Ravid untuk Best Student Abroad Nomination." />
+<meta name="description" content="Dukung Muttaqi Faqih Ravid untuk Best Student Abroad Nomination. Satu vote kamu berarti banget." />
 
 <meta property="og:title" content="Best Student Abroad Nomination — Muttaqi Faqih Ravid" />
 <meta property="og:description" content="Satu dukungan dari kamu bisa menjadi satu langkah lebih dekat menuju perjalanan abroad-ku." />
@@ -16,30 +16,38 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* ===== TOKENS ===== */
+/* ============================================================
+   0. TOKENS
+   ============================================================ */
 :root{
   --blue-50:#EFF6FF; --blue-100:#DBEAFE; --blue-200:#BFDBFE;
   --blue-300:#93C5FD; --blue-400:#60A5FA; --blue-500:#3B82F6;
   --blue-600:#2563EB; --blue-700:#1D4ED8; --blue-800:#1E3A8A;
+  --sky:#38BDF8; --cyan:#22D3EE;
 
   --ink:#0B1220; --ink-2:#1E293B; --ink-3:#475569; --ink-4:#64748B; --ink-5:#94A3B8;
   --bg:#F6F9FE; --surface:#FFFFFF; --surface-2:#FBFDFF;
   --line:#E4EBF5; --line-2:#CBD5E1;
 
   --radius-sm:10px; --radius:14px; --radius-lg:20px; --radius-pill:999px;
+
   --shadow-xs:0 1px 2px rgba(15,23,42,.05);
   --shadow-sm:0 2px 6px rgba(15,23,42,.06), 0 1px 2px rgba(15,23,42,.04);
   --shadow-md:0 8px 24px rgba(15,23,42,.08), 0 2px 6px rgba(15,23,42,.04);
   --shadow-lg:0 24px 56px rgba(30,64,175,.14), 0 8px 20px rgba(15,23,42,.06);
   --shadow-focus:0 0 0 4px rgba(59,130,246,.18);
+
   --grad-primary:linear-gradient(135deg,#2563EB 0%,#3B82F6 55%,#38BDF8 100%);
   --grad-soft:linear-gradient(135deg,#EFF6FF 0%,#E0F2FE 100%);
   --grad-gold:linear-gradient(135deg,#B8860B 0%,#DAA520 35%,#FFD700 65%,#B8860B 100%);
+
   --font-display:'Space Grotesk','Inter',system-ui,sans-serif;
   --font-body:'Inter',system-ui,-apple-system,sans-serif;
 }
 
-/* ===== BASE ===== */
+/* ============================================================
+   1. RESET / BASE
+   ============================================================ */
 *,*::before,*::after{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
 body{
@@ -56,14 +64,23 @@ body{
   min-height:100vh;
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
   padding-bottom:calc(24px + env(safe-area-inset-bottom));
 }
 img{ max-width:100%; display:block; }
 button{ font-family:inherit; cursor:pointer; border:none; background:none; color:inherit; padding:0; }
-input,textarea{ font-family:inherit; font-size:inherit; color:inherit; }
+input,textarea,select{ font-family:inherit; font-size:inherit; color:inherit; }
 a{ color:var(--blue-600); text-decoration:none; }
+a:hover{ text-decoration:underline; }
+::selection{ background:#BFDBFE; color:var(--ink); }
+::-webkit-scrollbar{ width:10px; height:10px; }
+::-webkit-scrollbar-track{ background:transparent; }
+::-webkit-scrollbar-thumb{ background:#CBD5E1; border-radius:999px; border:2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover{ background:#94A3B8; }
 
-/* ===== LAYOUT ===== */
+/* ============================================================
+   2. LAYOUT
+   ============================================================ */
 .page{
   position:relative; z-index:1;
   width:min(100% - 32px, 1080px);
@@ -94,6 +111,7 @@ a{ color:var(--blue-600); text-decoration:none; }
   font-size:14.5px; color:var(--ink-3);
   margin:0; max-width:640px;
 }
+
 .card{
   background:var(--surface);
   border:1px solid var(--line);
@@ -102,7 +120,9 @@ a{ color:var(--blue-600); text-decoration:none; }
   padding:clamp(18px, 3.6vw, 28px);
 }
 
-/* ===== TOPBAR ===== */
+/* ============================================================
+   3. TOPBAR
+   ============================================================ */
 .topbar{
   display:flex; align-items:center; justify-content:space-between;
   gap:12px; flex-wrap:wrap; margin-bottom:24px;
@@ -133,8 +153,32 @@ a{ color:var(--blue-600); text-decoration:none; }
   color:var(--ink-4);
   text-transform:uppercase; letter-spacing:.08em;
 }
+.live-badge{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--font-display);
+  font-size:12px; font-weight:600;
+  padding:8px 14px;
+  border-radius:var(--radius-pill);
+  background:var(--surface);
+  border:1px solid var(--line);
+  color:var(--ink-2);
+  box-shadow:var(--shadow-xs);
+}
+.live-badge .pulse{
+  width:7px; height:7px; border-radius:50%;
+  background:#10B981;
+  box-shadow:0 0 0 0 rgba(16,185,129,.5);
+  animation:pulseRing 2s infinite;
+}
+@keyframes pulseRing{
+  0%{ box-shadow:0 0 0 0 rgba(16,185,129,.5); }
+  70%{ box-shadow:0 0 0 8px rgba(16,185,129,0); }
+  100%{ box-shadow:0 0 0 0 rgba(16,185,129,0); }
+}
 
-/* ===== HERO ===== */
+/* ============================================================
+   4. HERO
+   ============================================================ */
 .hero{
   position:relative;
   background:var(--surface);
@@ -192,7 +236,9 @@ a{ color:var(--blue-600); text-decoration:none; }
 }
 .hero-cta{ display:flex; gap:10px; flex-wrap:wrap; }
 
-/* ===== BUTTONS ===== */
+/* ============================================================
+   5. BUTTONS
+   ============================================================ */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:8px;
   font-family:var(--font-display);
@@ -252,7 +298,115 @@ a{ color:var(--blue-600); text-decoration:none; }
 }
 .btn.is-done::before{ content:"✓ "; margin-right:2px; font-weight:700; }
 
-/* ===== PROFILE ===== */
+/* ============================================================
+   6. STATS + PROGRESS
+   ============================================================ */
+.stats-grid{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:12px; margin-bottom:20px;
+}
+@media (min-width:720px){
+  .stats-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; }
+}
+.stat-card{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:16px 14px;
+  box-shadow:var(--shadow-xs);
+  position:relative; overflow:hidden;
+  transition:transform .22s, box-shadow .22s, border-color .22s;
+}
+.stat-card::before{
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background:var(--grad-primary); opacity:.9;
+}
+.stat-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-sm);
+  border-color:var(--blue-200);
+}
+.stat-ico{
+  font-size:16px; line-height:1; margin-bottom:10px;
+  width:32px; height:32px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:10px;
+  background:var(--blue-50);
+  color:var(--blue-700);
+}
+.stat-num{
+  font-family:var(--font-display);
+  font-size:clamp(22px, 4.8vw, 30px);
+  font-weight:700; letter-spacing:-.03em;
+  color:var(--ink); line-height:1.05;
+  font-variant-numeric:tabular-nums;
+}
+.stat-label{
+  font-size:11px; font-weight:600;
+  color:var(--ink-4);
+  text-transform:uppercase; letter-spacing:.1em;
+  margin-top:4px;
+}
+.progress-wrap{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:18px 20px;
+  box-shadow:var(--shadow-xs);
+}
+.progress-top{
+  display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+  margin-bottom:12px; flex-wrap:wrap;
+}
+.progress-top .label{
+  font-family:var(--font-display);
+  font-size:14px; font-weight:600; color:var(--ink);
+}
+.progress-top .value{
+  font-family:var(--font-display);
+  font-size:14px; font-weight:600; color:var(--blue-600);
+  font-variant-numeric:tabular-nums;
+}
+.progress-track{
+  height:10px; border-radius:var(--radius-pill);
+  background:#EEF4FB; overflow:hidden; position:relative;
+  box-shadow:inset 0 1px 2px rgba(15,23,42,.04);
+}
+.progress-fill{
+  height:100%; width:0%;
+  border-radius:var(--radius-pill);
+  background:var(--grad-primary);
+  transition:width 1.2s cubic-bezier(.22,1,.36,1);
+  position:relative; overflow:hidden;
+}
+.progress-fill::after{
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent);
+  transform:translateX(-100%);
+  animation:shimmer 2.8s ease-in-out infinite;
+}
+@keyframes shimmer{ 0%{transform:translateX(-100%)} 60%,100%{transform:translateX(200%)} }
+.progress-foot{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  font-size:12.5px; color:var(--ink-4);
+  margin-top:10px; flex-wrap:wrap;
+}
+.progress-foot strong{ color:var(--ink-2); font-weight:600; }
+
+/* Gold text untuk "Unggulan" */
+.gold-text{
+  background:var(--grad-gold);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+  font-weight:700;
+  letter-spacing:-.01em;
+}
+
+/* ============================================================
+   7. PROFILE
+   ============================================================ */
 .profile-card{
   display:flex; flex-direction:column; align-items:center; text-align:center;
   gap:24px;
@@ -351,7 +505,9 @@ a{ color:var(--blue-600); text-decoration:none; }
   letter-spacing:-.005em;
 }
 
-/* ===== LOGOS ===== */
+/* ============================================================
+   8. LOGOS
+   ============================================================ */
 .dual-grid{
   display:grid; grid-template-columns:1fr; gap:16px;
 }
@@ -414,7 +570,9 @@ a{ color:var(--blue-600); text-decoration:none; }
 }
 .logo-card .logo-sub em{ font-style:italic; color:var(--ink-3); }
 
-/* ===== GALLERY ===== */
+/* ============================================================
+   9. GALLERY
+   ============================================================ */
 .gallery{
   display:grid;
   grid-template-columns:repeat(2, minmax(0,1fr));
@@ -456,7 +614,9 @@ a{ color:var(--blue-600); text-decoration:none; }
 }
 .gallery-item .gallery-ph .ph-ico{ font-size:22px; opacity:.5; }
 
-/* ===== VOTE CTA ===== */
+/* ============================================================
+   10. VOTE CTA
+   ============================================================ */
 .vote-card{
   position:relative;
   background:linear-gradient(135deg,#0B1220 0%, #172554 55%, #1E3A8A 100%);
@@ -515,11 +675,18 @@ a{ color:var(--blue-600); text-decoration:none; }
   padding:15px 28px; font-size:15px;
   box-shadow:0 10px 26px rgba(56,189,248,.4);
 }
+.vote-card .btn-primary:hover{
+  box-shadow:0 14px 32px rgba(56,189,248,.55);
+}
 .vote-card .btn-soft{
   background:rgba(255,255,255,.08);
   color:#fff;
   border:1px solid rgba(255,255,255,.2);
   backdrop-filter:blur(8px);
+}
+.vote-card .btn-soft:hover{
+  background:rgba(255,255,255,.16);
+  border-color:rgba(255,255,255,.32);
 }
 .vote-cta{
   display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
@@ -530,108 +697,9 @@ a{ color:var(--blue-600); text-decoration:none; }
   display:inline-flex; align-items:center; gap:6px;
 }
 
-/* ===== MURID UNGGULAN ===== */
-.gold-text{
-  background:var(--grad-gold);
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
-  font-weight:700;
-  letter-spacing:-.01em;
-}
-.excellence-card{
-  background:linear-gradient(160deg,#FFFDF5 0%,#FFFFFF 45%,#FFFBF0 100%);
-  border:1px solid rgba(218,165,32,.35);
-  border-radius:var(--radius-lg);
-  box-shadow:
-    0 4px 14px rgba(218,165,32,.10),
-    0 1px 3px rgba(15,23,42,.04);
-  padding:clamp(20px, 4vw, 32px);
-  position:relative;
-  overflow:hidden;
-}
-.excellence-card::before{
-  content:''; position:absolute; top:0; left:0; right:0; height:3px;
-  background:linear-gradient(90deg,#B8860B,#FFD700,#DAA520,#B8860B);
-  opacity:.95;
-}
-.excellence-grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:16px;
-  margin-bottom:24px;
-}
-@media (min-width:640px){
-  .excellence-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); }
-}
-.excellence-item{
-  display:flex;
-  gap:14px;
-  align-items:flex-start;
-  padding:16px;
-  background:linear-gradient(160deg,#FFFFFF 0%,#FFFDF5 100%);
-  border:1px solid rgba(218,165,32,.28);
-  border-radius:var(--radius);
-  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
-}
-.excellence-item:hover{
-  transform:translateY(-3px);
-  border-color:rgba(218,165,32,.6);
-  box-shadow:0 10px 24px rgba(218,165,32,.15);
-}
-.excellence-icon{
-  flex:0 0 auto;
-  width:44px;
-  height:44px;
-  border-radius:12px;
-  background:linear-gradient(135deg,#FFF9E0,#FFEFB8);
-  border:1px solid rgba(218,165,32,.5);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:22px;
-  line-height:1;
-  box-shadow:0 3px 8px rgba(218,165,32,.15);
-}
-.excellence-title{
-  font-family:var(--font-display);
-  font-size:14.5px;
-  font-weight:700;
-  color:#8B6914;
-  margin:0 0 4px;
-  letter-spacing:-.01em;
-}
-.excellence-text{
-  font-size:13px;
-  line-height:1.55;
-  color:var(--ink-3);
-  margin:0;
-}
-.excellence-quote{
-  font-family:var(--font-display);
-  font-size:14.5px;
-  font-weight:500;
-  font-style:italic;
-  line-height:1.65;
-  color:#5C4A1A;
-  background:linear-gradient(135deg,#FFFDF5,#FFF8E0);
-  border-left:3px solid #DAA520;
-  border-radius:0 var(--radius) var(--radius) 0;
-  padding:16px 20px;
-  margin:0;
-  letter-spacing:-.005em;
-  box-shadow:inset 0 0 0 1px rgba(218,165,32,.1);
-}
-@media (max-width: 480px){
-  .excellence-card{ padding:18px 14px; }
-  .excellence-item{ padding:14px; gap:12px; }
-  .excellence-icon{ width:40px; height:40px; font-size:20px; }
-  .excellence-title{ font-size:14px; }
-  .excellence-text{ font-size:12.5px; }
-  .excellence-quote{ font-size:13.5px; padding:14px 16px; }
-}
-
-/* ===== JOURNEY ===== */
+/* ============================================================
+   11. THE PEOPLE BEHIND MY JOURNEY
+   ============================================================ */
 .journey-section{
   position:relative;
   background:
@@ -727,6 +795,8 @@ a{ color:var(--blue-600); text-decoration:none; }
   animation:jdFloat 4s ease-in-out infinite;
   transform-origin:center;
 }
+.journey-title .jt-emoji:nth-child(2){ animation-delay:.3s; }
+.journey-title .jt-emoji:nth-child(3){ animation-delay:.6s; }
 .journey-quote{
   font-family:var(--font-display);
   font-size:clamp(12.5px, 2.1vw, 14px);
@@ -801,6 +871,11 @@ a{ color:var(--blue-600); text-decoration:none; }
   color:var(--ink);
   text-align:center;
   margin:0 0 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  flex-wrap:wrap;
 }
 .journey-grid{
   position:relative;
@@ -838,12 +913,29 @@ a{ color:var(--blue-600); text-decoration:none; }
   content:''; position:absolute; top:0; left:0; right:0; height:3px;
   background:linear-gradient(90deg, #93C5FD, #60A5FA, #38BDF8, #93C5FD);
   opacity:.85;
+  transition:opacity .3s;
 }
 .journey-card:hover{
   transform:translateY(-4px);
   border-color:var(--blue-300);
-  box-shadow:0 16px 34px rgba(37,99,235,.16);
+  box-shadow:
+    0 16px 34px rgba(37,99,235,.16),
+    0 6px 12px rgba(56,189,248,.12);
 }
+.journey-card:hover::before{ opacity:1; }
+.journey-card:focus-visible{
+  box-shadow:
+    0 0 0 4px rgba(96,165,250,.28),
+    0 16px 34px rgba(37,99,235,.16);
+}
+.journey-card.is-active{
+  transform:translateY(-4px) scale(1.015);
+  border-color:var(--blue-400);
+  box-shadow:
+    0 20px 40px rgba(37,99,235,.20),
+    0 0 0 4px rgba(96,165,250,.22);
+}
+.journey-card.is-active::before{ opacity:1; }
 .jc-num{
   position:absolute;
   top:10px;
@@ -873,7 +965,8 @@ a{ color:var(--blue-600); text-decoration:none; }
   height:clamp(54px, 12vw, 66px);
   border-radius:50%;
   margin:4px auto 12px;
-  background:linear-gradient(140deg, #EFF6FF 0%, #DBEAFE 55%, #BFDBFE 100%);
+  background:
+    linear-gradient(140deg, #EFF6FF 0%, #DBEAFE 55%, #BFDBFE 100%);
   border:2px solid #FFFFFF;
   box-shadow:
     0 0 0 3px rgba(147,197,253,.5),
@@ -882,6 +975,7 @@ a{ color:var(--blue-600); text-decoration:none; }
   font-size:clamp(22px, 5vw, 28px);
   line-height:1;
   position:relative;
+  transition:transform .35s cubic-bezier(.22,1,.36,1);
 }
 .jc-avatar::after{
   content:'';
@@ -891,6 +985,7 @@ a{ color:var(--blue-600); text-decoration:none; }
   animation:jcSpin 22s linear infinite;
 }
 @keyframes jcSpin{ to{ transform:rotate(360deg); } }
+.journey-card:hover .jc-avatar{ transform:scale(1.05); }
 .jc-name{
   font-family:var(--font-display);
   font-size:clamp(13px, 2.2vw, 14.5px);
@@ -899,6 +994,7 @@ a{ color:var(--blue-600); text-decoration:none; }
   color:var(--ink);
   margin:0 0 5px;
   line-height:1.3;
+  word-break:break-word;
 }
 .jc-role{
   font-family:var(--font-body);
@@ -922,6 +1018,8 @@ a{ color:var(--blue-600); text-decoration:none; }
   display:inline-block;
   animation:jdFloat 5s ease-in-out infinite;
 }
+.jc-emojis span:nth-child(2){ animation-delay:.4s; }
+.jc-emojis span:nth-child(3){ animation-delay:.8s; }
 .jc-hint{
   margin-top:10px;
   font-family:var(--font-body);
@@ -929,7 +1027,9 @@ a{ color:var(--blue-600); text-decoration:none; }
   color:var(--blue-500);
   letter-spacing:.05em;
   opacity:.7;
+  transition:opacity .3s;
 }
+.journey-card:hover .jc-hint{ opacity:1; }
 .journey-closing{
   position:relative;
   z-index:1;
@@ -975,26 +1075,47 @@ a{ color:var(--blue-600); text-decoration:none; }
   font-size:16px;
   line-height:1;
   transform:translate(-50%, -50%);
+  will-change:transform, opacity;
   animation:heartBurst 1.3s cubic-bezier(.22,1,.36,1) forwards;
 }
 @keyframes heartBurst{
-  0%{ opacity:0; transform:translate(-50%, -50%) scale(.3); }
-  15%{ opacity:1; transform:translate(-50%, -50%) scale(1.1); }
+  0%{
+    opacity:0;
+    transform:translate(-50%, -50%) scale(.3) rotate(0deg);
+  }
+  15%{
+    opacity:1;
+    transform:translate(-50%, -50%) scale(1.1) rotate(0deg);
+  }
   100%{
     opacity:0;
     transform:
       translate(calc(-50% + var(--dx, 0px)), calc(-50% + var(--dy, -80px)))
-      scale(.5) rotate(var(--rot, 20deg));
+      scale(.5)
+      rotate(var(--rot, 20deg));
   }
 }
 @media (max-width: 480px){
-  .journey-section{ padding:22px 12px 24px; border-radius:var(--radius); }
-  .journey-quote{ padding:14px; }
+  .journey-section{
+    padding:22px 12px 24px;
+    border-radius:var(--radius);
+  }
+  .journey-quote{ padding:14px 14px; }
+  .journey-quote::before{ top:2px; left:6px; font-size:24px; }
+  .journey-quote::after{ bottom:-4px; right:6px; font-size:24px; }
+  .journey-head{ margin-bottom:18px; }
+  .journey-divider{ margin:18px auto 20px; max-width:240px; }
   .journey-card{ padding:16px 12px 14px; }
+  .jc-num{ top:8px; right:8px; font-size:9.5px; padding:2px 7px; }
+  .jc-corner{ top:10px; left:10px; font-size:11px; }
+  .jc-hint{ font-size:9.5px; margin-top:8px; }
   .journey-grid{ gap:10px; }
+  .journey-closing{ margin-top:22px; }
 }
 
-/* ===== FOOTER ===== */
+/* ============================================================
+   12. FOOTER
+   ============================================================ */
 .footer{
   position:relative; z-index:1;
   width:min(100% - 32px, 1080px);
@@ -1020,10 +1141,14 @@ a{ color:var(--blue-600); text-decoration:none; }
   font-size:14px;
   opacity:.55;
   transition:.25s;
+  -webkit-tap-highlight-color:transparent;
+  user-select:none;
 }
 .admin-trigger:hover{ opacity:1; color:var(--blue-600); border-color:var(--blue-200); }
 
-/* ===== MODAL ===== */
+/* ============================================================
+   13. MODAL
+   ============================================================ */
 .modal{
   position:fixed; inset:0; z-index:100;
   display:none; align-items:center; justify-content:center;
@@ -1103,6 +1228,7 @@ a{ color:var(--blue-600); text-decoration:none; }
   font-size:14.5px; color:var(--ink);
   transition:border-color .2s, box-shadow .2s, background .2s;
   outline:none;
+  font-family:var(--font-body);
 }
 .field textarea{ resize:vertical; min-height:88px; line-height:1.55; }
 .field input:focus, .field textarea:focus{
@@ -1113,7 +1239,9 @@ a{ color:var(--blue-600); text-decoration:none; }
 .field .hint{ font-size:11.5px; color:var(--ink-5); margin-top:6px; line-height:1.5; }
 .field .error{ font-size:12.5px; color:#DC2626; margin-top:6px; font-weight:500; }
 
-/* ===== ADMIN ===== */
+/* ============================================================
+   14. ADMIN
+   ============================================================ */
 .admin-section{
   padding:18px 24px;
   border-bottom:1px solid var(--line);
@@ -1122,6 +1250,7 @@ a{ color:var(--blue-600); text-decoration:none; }
 .admin-section h4{
   font-family:var(--font-display);
   font-size:14px; font-weight:600;
+  letter-spacing:-.005em;
   margin:0 0 4px; color:var(--ink);
   display:flex; align-items:center; gap:8px;
 }
@@ -1177,7 +1306,9 @@ a{ color:var(--blue-600); text-decoration:none; }
   color:#fff; font-size:12px;
   display:flex; align-items:center; justify-content:center;
   backdrop-filter:blur(4px);
+  transition:.2s;
 }
+.gallery-admin-item .remove-btn:hover{ background:#DC2626; transform:scale(1.08); }
 .gallery-admin-add{
   aspect-ratio:1/1;
   border-radius:var(--radius-sm);
@@ -1197,7 +1328,9 @@ a{ color:var(--blue-600); text-decoration:none; }
 .admin-status.ok{ background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; }
 .admin-status.err{ background:#FEF2F2; color:#991B1B; border:1px solid #FECACA; }
 
-/* ===== TOAST ===== */
+/* ============================================================
+   15. TOAST
+   ============================================================ */
 .toast-wrap{
   position:fixed;
   left:50%; bottom:calc(24px + env(safe-area-inset-bottom));
@@ -1227,16 +1360,23 @@ a{ color:var(--blue-600); text-decoration:none; }
   box-shadow:0 12px 32px rgba(37,99,235,.35);
 }
 
-/* ===== CONFETTI ===== */
+/* ============================================================
+   16. CONFETTI
+   ============================================================ */
 .confetti-canvas{ position:fixed; inset:0; z-index:150; pointer-events:none; }
 
-/* ===== REVEAL ===== */
+/* ============================================================
+   17. REVEAL
+   ============================================================ */
 .reveal{
   opacity:0; transform:translateY(16px);
   transition:opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
 }
 .reveal.in{ opacity:1; transform:none; }
 
+/* ============================================================
+   18. REDUCED MOTION
+   ============================================================ */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{
     animation-duration:.01ms !important;
@@ -1244,6 +1384,10 @@ a{ color:var(--blue-600); text-decoration:none; }
     transition-duration:.01ms !important;
   }
   .reveal{ opacity:1; transform:none; }
+  .heart-particle{ animation:none !important; opacity:0 !important; }
+  .jc-avatar::after{ animation:none; }
+  .journey-deco{ animation:none !important; }
+  .journey-title .jt-emoji{ animation:none; }
 }
 </style>
 </head>
@@ -1258,6 +1402,10 @@ a{ color:var(--blue-600); text-decoration:none; }
         Best Student Abroad
         <small>Nomination 2026</small>
       </span>
+    </div>
+    <div class="live-badge" id="liveBadge">
+      <span class="pulse"></span>
+      <span id="liveText">Live counting</span>
     </div>
   </header>
 
@@ -1281,6 +1429,45 @@ a{ color:var(--blue-600); text-decoration:none; }
         <button class="btn btn-soft" id="heroShareBtn">
           <span class="ico">↗</span> Bagikan
         </button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reveal">
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-ico">✦</div>
+        <div class="stat-num" id="statVotes">0</div>
+        <div class="stat-label">Total Votes</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico">◎</div>
+        <div class="stat-num" id="statTarget">1.000</div>
+        <div class="stat-label">Target</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico">◐</div>
+        <div class="stat-num" id="statPercent">0%</div>
+        <div class="stat-label">Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-ico">🏆</div>
+        <div class="stat-num" style="font-size:clamp(16px, 3vw, 20px); line-height:1.2;">Murid <span class="gold-text">Unggulan</span></div>
+        <div class="stat-label">Predikat</div>
+      </div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-top">
+        <span class="label">Progress menuju target</span>
+        <span class="value" id="progressValue">0 / 1.000</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-foot">
+        <span>Terus dukung sampai <strong>1.000 votes</strong></span>
+        <span id="progressRemain">1.000 votes lagi</span>
       </div>
     </div>
   </section>
@@ -1375,43 +1562,6 @@ a{ color:var(--blue-600); text-decoration:none; }
     </div>
   </section>
 
-  <section class="section reveal">
-    <div class="section-head">
-      <span class="section-eyebrow">Murid Unggulan</span>
-      <h2 class="section-title">Kenapa Muttaqi layak jadi <span class="gold-text">Murid Unggulan</span>?</h2>
-      <p class="section-sub">Bukan sekadar pintar di kelas — tapi juga punya semangat, karakter, dan mimpi yang besar.</p>
-    </div>
-
-    <div class="excellence-card">
-      <div class="excellence-grid">
-        <div class="excellence-item">
-          <div class="excellence-icon">🎓</div>
-          <h3 class="excellence-title">Akademik</h3>
-          <p class="excellence-text">Konsisten belajar & aktif di kelas XII SEKOLAH WASKITO.</p>
-        </div>
-        <div class="excellence-item">
-          <div class="excellence-icon">🌎</div>
-          <h3 class="excellence-title">Visi Global</h3>
-          <p class="excellence-text">Bermimpi menempuh pendidikan di luar negeri untuk pengalaman lebih luas.</p>
-        </div>
-        <div class="excellence-item">
-          <div class="excellence-icon">🤝</div>
-          <h3 class="excellence-title">Karakter</h3>
-          <p class="excellence-text">Aktif di kelompok SATYA MADA KARA, senang bekerja sama, dan peduli sekitar.</p>
-        </div>
-        <div class="excellence-item">
-          <div class="excellence-icon">🚀</div>
-          <h3 class="excellence-title">Semangat</h3>
-          <p class="excellence-text">Berani ambil kesempatan, terus belajar, dan tidak mudah menyerah.</p>
-        </div>
-      </div>
-
-      <blockquote class="excellence-quote">
-        "Menjadi <span class="gold-text">murid unggulan</span> bukan tentang menjadi sempurna — tapi tentang terus berusaha menjadi versi terbaik dari diri sendiri. ✨"
-      </blockquote>
-    </div>
-  </section>
-
   <section class="journey-section reveal" id="journeySection" aria-labelledby="journeyTitle">
     <span class="journey-deco jd-1" aria-hidden="true">✨</span>
     <span class="journey-deco jd-2" aria-hidden="true">💙</span>
@@ -1494,7 +1644,7 @@ a{ color:var(--blue-600); text-decoration:none; }
     <div class="modal-body">
       <div class="field">
         <label for="voterName">Nama kamu</label>
-        <input type="text" id="voterName" placeholder="Contoh: Dinda" maxlength="40">
+        <input type="text" id="voterName" placeholder="Contoh: Dinda" maxlength="40" autocomplete="name">
         <div class="hint">Kosongkan kalau mau anonim.</div>
       </div>
       <div class="field">
@@ -1524,7 +1674,7 @@ a{ color:var(--blue-600); text-decoration:none; }
     <div class="modal-body">
       <div class="field">
         <label for="adminPass">Password</label>
-        <input type="password" id="adminPass" placeholder="••••••••">
+        <input type="password" id="adminPass" placeholder="••••••••" autocomplete="current-password">
         <div class="error" id="loginError" style="display:none;"></div>
       </div>
     </div>
@@ -1547,6 +1697,7 @@ a{ color:var(--blue-600); text-decoration:none; }
 
     <div class="admin-section">
       <h4><span class="admin-num">1</span> Foto Profil</h4>
+      <p class="admin-desc">Disarankan rasio 1:1, ukuran minimal 400×400px.</p>
       <div class="upload-row">
         <div class="upload-preview" id="prevProfile">👤</div>
         <div class="upload-actions">
@@ -1559,6 +1710,7 @@ a{ color:var(--blue-600); text-decoration:none; }
 
     <div class="admin-section">
       <h4><span class="admin-num">2</span> Logo Sekolah</h4>
+      <p class="admin-desc">Format PNG transparan lebih baik. Rasio 16:10.</p>
       <div class="upload-row">
         <div class="upload-preview contain" id="prevSchool">🏫</div>
         <div class="upload-actions">
@@ -1571,6 +1723,7 @@ a{ color:var(--blue-600); text-decoration:none; }
 
     <div class="admin-section">
       <h4><span class="admin-num">3</span> Logo Kampus</h4>
+      <p class="admin-desc">Format PNG transparan lebih baik. Rasio 16:10.</p>
       <div class="upload-row">
         <div class="upload-preview contain" id="prevCampus">🏛️</div>
         <div class="upload-actions">
@@ -1583,12 +1736,14 @@ a{ color:var(--blue-600); text-decoration:none; }
 
     <div class="admin-section">
       <h4><span class="admin-num">4</span> Galeri (maks 8 foto)</h4>
+      <p class="admin-desc">Klik kotak + untuk menambahkan foto. Klik ✕ untuk menghapus.</p>
       <input type="file" id="fileGallery" accept="image/*" multiple style="display:none;">
       <div class="gallery-admin-grid" id="galleryAdmin"></div>
     </div>
 
     <div class="admin-section">
       <h4><span class="admin-num">5</span> Reset Data</h4>
+      <p class="admin-desc">Menghapus semua foto, logo, galeri, dan riwayat dukungan.</p>
       <button class="btn btn-ghost btn-sm" id="resetAllBtn">Reset Semua Data</button>
       <div class="admin-status" id="adminStatus"></div>
     </div>
@@ -1603,48 +1758,18 @@ a{ color:var(--blue-600); text-decoration:none; }
 <div class="toast-wrap" id="toastWrap"></div>
 <canvas class="confetti-canvas" id="confettiCanvas"></canvas>
 
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-
 <script>
 const CONFIG = {
   ADMIN_PASSWORD: 'Mut2025!',
+  TARGET: 1000,
   ADMIN_CLICK_COUNT: 1
 };
 
-const BACKEND_ENABLED = true;
-const firebaseConfig = {
-  apiKey: "AIzaSyAq2eF2Dy2ZcHpsYv8XdNTut5tjsYqpmg0",
-  authDomain: "profile-muttaqi15.firebaseapp.com",
-  databaseURL: "https://profile-muttaqi15-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "profile-muttaqi15",
-  storageBucket: "profile-muttaqi15.firebasestorage.app",
-  messagingSenderId: "113332255844",
-  appId: "1:113332255844:web:8d66cce61ddd4ac0b33371",
-  measurementId: "G-8QG5TQY390"
-};
-
-let db = null;
-function initFirebase(){
-  if (!BACKEND_ENABLED || typeof firebase === 'undefined') return false;
-  try{
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    db = firebase.database();
-    console.log('🔥 Firebase connected');
-    return true;
-  }catch(e){ console.warn('Firebase init error:', e); return false; }
-}
-initFirebase();
-let fbRetry = 0;
-const fbTimer = setInterval(() => {
-  if (db || fbRetry >= 10){ clearInterval(fbTimer); return; }
-  fbRetry++; initFirebase();
-}, 500);
-
 const ASSETS = {
-  profile: "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
+  profile:    "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
   schoolLogo: "https://i.postimg.cc/xjBkTKqt/Proyek-Baru-31-FCFEC9D.png",
   targetCampus: "https://i.postimg.cc/v8C1HWD0/Proyek-Baru-31-51A6A26.png",
+  abroadGroup:  "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
   gallery: [
     "https://i.postimg.cc/Mp7zwBjR/IMG-20260923-204947.jpg",
     "https://i.postimg.cc/52BfJzFJ/IMG-20260923-205016.jpg",
@@ -1661,8 +1786,8 @@ const VoteGuard = (() => {
   function getFingerprint(){
     let fp = localStorage.getItem(FINGERPRINT_KEY);
     if (!fp){
-      const raw = [navigator.userAgent, navigator.language, screen.width+"x"+screen.height, new Date().getTimezoneOffset(), Math.random().toString(36).slice(2,10)].join("|");
-      try{ fp = btoa(unescape(encodeURIComponent(raw))).slice(0,32); }catch{ fp = 'fp_'+Math.random().toString(36).slice(2,14); }
+      const raw = [navigator.userAgent, navigator.language, screen.width + "x" + screen.height, new Date().getTimezoneOffset(), Math.random().toString(36).slice(2, 10)].join("|");
+      try{ fp = btoa(unescape(encodeURIComponent(raw))).slice(0, 32); }catch{ fp = 'fp_' + Math.random().toString(36).slice(2, 14); }
       localStorage.setItem(FINGERPRINT_KEY, fp);
     }
     return fp;
@@ -1677,10 +1802,13 @@ const VoteGuard = (() => {
   function markVoted(){
     try{ localStorage.setItem(STORAGE_KEY, JSON.stringify({voted:true, at:new Date().toISOString(), fp:getFingerprint()})); }catch{}
   }
-  return { hasVoted, markVoted, getFingerprint };
+  function reset(){ try{ localStorage.removeItem(STORAGE_KEY); }catch{} }
+  return { hasVoted, markVoted, getFingerprint, reset };
 })();
 
 const STORAGE = {
+  votes: 'bsa_votes_v1',
+  supporters: 'bsa_supporters_v1',
   profile: 'bsa_profile_v1',
   schoolLogo: 'bsa_school_logo_v1',
   campusLogo: 'bsa_campus_logo_v1',
@@ -1695,14 +1823,24 @@ const appreciationPeople = [
 
 const $ = (s, c=document) => c.querySelector(s);
 const $$ = (s, c=document) => [...c.querySelectorAll(s)];
+const fmt = n => n.toLocaleString('id-ID');
 
 function getItem(key, fallback){
   try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }catch{ return fallback; }
 }
 function setItem(key, value){
-  try{ localStorage.setItem(key, JSON.stringify(value)); return true; }catch(e){ console.warn(e); return false; }
+  try{ localStorage.setItem(key, JSON.stringify(value)); return true; }
+  catch(e){ console.warn('Storage full', e); toast('⚠️','Penyimpanan penuh. Coba kurangi ukuran foto.'); return false; }
 }
 function removeItem(key){ try{ localStorage.removeItem(key); }catch{} }
+
+function safeGet(key, fallback){
+  const val = getItem(key, undefined);
+  if (val === undefined || val === null) return fallback;
+  if (Array.isArray(val) && val.length === 0) return fallback;
+  if (typeof val === 'string' && val.trim() === '') return fallback;
+  return val;
+}
 
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -1714,10 +1852,7 @@ function toast(icon, msg, duration=2800, variant=''){
   el.className = 'toast' + (variant ? ' ' + variant : '');
   el.innerHTML = `<span class="toast-ico">${icon}</span><span>${escapeHtml(msg)}</span>`;
   wrap.appendChild(el);
-  setTimeout(() => {
-    el.classList.add('out');
-    setTimeout(() => el.remove(), 300);
-  }, duration);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 300); }, duration);
 }
 
 function burstConfetti(){
@@ -1799,26 +1934,35 @@ function compressImage(file, maxSize=600, quality=0.85){
 }
 
 const state = {
-  profile: ASSETS.profile,
-  schoolLogo: ASSETS.schoolLogo,
-  campusLogo: ASSETS.targetCampus,
-  gallery: ASSETS.gallery.slice(),
+  votes: safeGet(STORAGE.votes, 0),
+  supporters: safeGet(STORAGE.supporters, []),
+  profile: safeGet(STORAGE.profile, ASSETS.profile),
+  schoolLogo: safeGet(STORAGE.schoolLogo, ASSETS.schoolLogo),
+  campusLogo: safeGet(STORAGE.campusLogo, ASSETS.targetCampus),
+  gallery: safeGet(STORAGE.gallery, ASSETS.gallery.slice()),
   isAdmin: false
 };
 
-const uploadedProfile = getItem(STORAGE.profile, null);
-const uploadedSchool = getItem(STORAGE.schoolLogo, null);
-const uploadedCampus = getItem(STORAGE.campusLogo, null);
-const uploadedGallery = getItem(STORAGE.gallery, null);
-if (uploadedProfile && uploadedProfile.length > 100) state.profile = uploadedProfile;
-if (uploadedSchool && uploadedSchool.length > 100) state.schoolLogo = uploadedSchool;
-if (uploadedCampus && uploadedCampus.length > 100) state.campusLogo = uploadedCampus;
-if (Array.isArray(uploadedGallery) && uploadedGallery.length > 0) state.gallery = uploadedGallery;
+function renderStats(){
+  const votes = state.votes;
+  const target = CONFIG.TARGET;
+  const pct = Math.min(100, (votes / target) * 100);
+  const remain = Math.max(0, target - votes);
+
+  $('#statVotes').textContent = fmt(votes);
+  $('#statTarget').textContent = fmt(target);
+  $('#statPercent').textContent = pct.toFixed(pct >= 10 ? 0 : 1) + '%';
+  $('#progressValue').textContent = `${fmt(votes)} / ${fmt(target)}`;
+  $('#progressRemain').textContent = remain > 0 ? `${fmt(remain)} votes lagi` : '🎉 Target tercapai!';
+
+  const fill = $('#progressFill');
+  requestAnimationFrame(() => { fill.style.width = pct + '%'; });
+}
 
 function renderProfile(){
   const frame = $('#photoFrame');
   frame.innerHTML = state.profile
-    ? `<img src="${state.profile}" alt="Foto Muttaqi" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\\'photo-placeholder\\'>MFR</div>';">`
+    ? `<img src="${state.profile}" alt="Foto Muttaqi Faqih Ravid" onerror="this.style.display='none'; this.parentNode.innerHTML='<div class=\\'photo-placeholder\\'>MFR</div>';">`
     : `<div class="photo-placeholder">MFR</div>`;
 }
 function renderLogos(){
@@ -1829,6 +1973,7 @@ function renderLogos(){
     ? `<img src="${state.campusLogo}" alt="Logo Kampus" onerror="this.style.display='none';">`
     : `<div class="logo-fallback">C</div>`;
 }
+
 function renderGallery(){
   const el = $('#gallery');
   const items = state.gallery;
@@ -1847,26 +1992,30 @@ function renderGallery(){
   }
   el.innerHTML = html;
 }
+
 function renderJourney(){
   const grid = $('#journeyGrid');
   if (!grid) return;
+
   grid.innerHTML = appreciationPeople.map((p, i) => {
     const num = String(i + 1).padStart(2, '0');
     const safeName = escapeHtml(p.name);
     const safeRole = escapeHtml(p.role || '');
     const emojis = (p.emojis || ['💙','✨','🫶']).map(e => `<span aria-hidden="true">${e}</span>`).join('');
+
     return `
-      <article class="journey-card" role="button" tabindex="0" data-index="${i}">
-        <span class="jc-num">${num}</span>
-        <span class="jc-corner">${p.corner || '✨'}</span>
-        <div class="jc-avatar">${p.icon || '💙'}</div>
+      <article class="journey-card" role="button" tabindex="0" aria-label="Apresiasi untuk ${safeName}" data-index="${i}">
+        <span class="jc-num" aria-hidden="true">${num}</span>
+        <span class="jc-corner" aria-hidden="true">${p.corner || '✨'}</span>
+        <div class="jc-avatar" aria-hidden="true">${p.icon || '💙'}</div>
         <h4 class="jc-name">${safeName}</h4>
         ${safeRole ? `<p class="jc-role">${safeRole}</p>` : ''}
-        <div class="jc-emojis">${emojis}</div>
-        <div class="jc-hint">tap to send love 💙</div>
+        <div class="jc-emojis" aria-hidden="true">${emojis}</div>
+        <div class="jc-hint" aria-hidden="true">tap to send love 💙</div>
       </article>
     `;
   }).join('');
+
   $$('.journey-card', grid).forEach(card => {
     card.addEventListener('click', () => onJourneyCardTap(card));
     card.addEventListener('keydown', e => {
@@ -1874,26 +2023,35 @@ function renderJourney(){
     });
   });
 }
+
 let journeyTapLock = false;
 function onJourneyCardTap(card){
   if (journeyTapLock) return;
   journeyTapLock = true;
   setTimeout(() => { journeyTapLock = false; }, 700);
+
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   card.classList.add('is-active');
   setTimeout(() => card.classList.remove('is-active'), 900);
-  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) heartBurst(card);
+
+  if (!reduceMotion) heartBurst(card);
   toast('🎉', `Thank you for being part of my journey. 🕺🏻✨`, 2600, 'warm');
 }
+
 function heartBurst(card){
   const rect = card.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
   const cy = rect.top + rect.height / 2;
   const emojis = ['💙','🎉','🫶','🕺🏻','🎉'];
-  for (let i = 0; i < 12; i++){
+  const count = 12;
+
+  for (let i = 0; i < count; i++){
     const el = document.createElement('span');
     el.className = 'heart-particle';
     el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    const angle = (Math.PI * 2 * i) / 12 + (Math.random() - .5) * .6;
+    el.setAttribute('aria-hidden', 'true');
+
+    const angle = (Math.PI * 2 * i) / count + (Math.random() - .5) * .6;
     const dist = 70 + Math.random() * 60;
     el.style.left = cx + 'px';
     el.style.top = cy + 'px';
@@ -1901,11 +2059,14 @@ function heartBurst(card){
     el.style.setProperty('--dy', (Math.sin(angle) * dist - 40).toFixed(1) + 'px');
     el.style.setProperty('--rot', ((Math.random() - .5) * 60).toFixed(1) + 'deg');
     el.style.fontSize = (12 + Math.random() * 10).toFixed(1) + 'px';
+
     document.body.appendChild(el);
     setTimeout(() => el.remove(), 1400);
   }
 }
+
 function renderAll(){
+  renderStats();
   renderProfile();
   renderLogos();
   renderGallery();
@@ -1929,55 +2090,44 @@ $$('.modal').forEach(m => m.addEventListener('click', e => { if (e.target === m)
 document.addEventListener('keydown', e => { if (e.key === 'Escape') $$('.modal.open').forEach(m => closeModal(m.id)); });
 
 function openVoteModal(){
-  if (VoteGuard.hasVoted()){
-    toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.');
-    return;
-  }
+  if (VoteGuard.hasVoted()){ toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.'); return; }
   $('#voterName').value = '';
   $('#voterMsg').value = '';
   $('#msgCount').textContent = '0';
   openModal('voteModal');
   setTimeout(() => $('#voterName').focus(), 250);
 }
+
 $('#voterMsg').addEventListener('input', e => { $('#msgCount').textContent = e.target.value.length; });
 
-async function submitVote(){
-  if (VoteGuard.hasVoted()){
-    toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.');
-    closeModal('voteModal');
-    return;
-  }
+function submitVote(){
+  if (VoteGuard.hasVoted()){ toast('💙', 'Kamu sudah vote sebelumnya! Cukup 1x ya.'); closeModal('voteModal'); return; }
+
   const name = $('#voterName').value.trim().slice(0, 40);
   const msg = $('#voterMsg').value.trim().slice(0, 160);
+
+  state.votes += 1;
   const supporter = {
     id: 's_' + Date.now() + '_' + Math.random().toString(36).slice(2,7),
     name: name || 'Anonim',
     msg: msg,
-    ts: Date.now(),
-    fp: VoteGuard.getFingerprint()
+    ts: Date.now()
   };
-  const btn = $('#submitVoteBtn');
-  const originalText = btn.innerHTML;
-  btn.disabled = true;
-  btn.innerHTML = '⏳ Mengirim...';
-  try{
-    if (db){
-      await db.ref('supporters/' + supporter.id).set(supporter);
-      await db.ref('votes').transaction(v => (v || 0) + 1);
-    }
-    VoteGuard.markVoted();
-    closeModal('voteModal');
-    applyVoteState();
-    burstConfetti();
-    toast('✦', 'Terima kasih sudah vote! 💙');
-  }catch(err){
-    console.error(err);
-    toast('⚠️', 'Gagal mengirim. Coba lagi ya.');
-  }finally{
-    btn.disabled = false;
-    btn.innerHTML = originalText;
-  }
+  state.supporters.push(supporter);
+  if (state.supporters.length > 200) state.supporters = state.supporters.slice(-200);
+
+  setItem(STORAGE.votes, state.votes);
+  setItem(STORAGE.supporters, state.supporters);
+
+  VoteGuard.markVoted();
+
+  closeModal('voteModal');
+  renderStats();
+  applyVoteState();
+  burstConfetti();
+  toast('✦', 'Terima kasih sudah vote! 💙');
 }
+
 $('#submitVoteBtn').addEventListener('click', submitVote);
 $('#voterName').addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); submitVote(); } });
 
@@ -1989,6 +2139,7 @@ function applyVoteState(){
       btn.classList.add('is-done');
       btn.innerHTML = '<span class="ico">💙</span> Kamu Sudah Vote';
       btn.disabled = true;
+      btn.setAttribute('aria-disabled', 'true');
     }
   });
 }
@@ -2012,19 +2163,23 @@ async function sharePage(){
 
 let adminClickCount = 0;
 let adminClickTimer = null;
+
 $('#adminTrigger').addEventListener('click', () => {
   if (state.isAdmin){ openAdminPanel(); return; }
   adminClickCount++;
   clearTimeout(adminClickTimer);
   adminClickTimer = setTimeout(() => { adminClickCount = 0; }, 1200);
   if (adminClickCount >= CONFIG.ADMIN_CLICK_COUNT){ adminClickCount = 0; openLogin(); }
+  else { toast('ℹ️', `Klik ${CONFIG.ADMIN_CLICK_COUNT - adminClickCount}x lagi untuk admin`, 1500); }
 });
+
 document.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')){
     e.preventDefault();
     state.isAdmin ? openAdminPanel() : openLogin();
   }
 });
+
 function openLogin(){
   $('#adminPass').value = '';
   $('#loginError').style.display = 'none';
@@ -2033,6 +2188,7 @@ function openLogin(){
 }
 $('#loginBtn').addEventListener('click', tryLogin);
 $('#adminPass').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
 function tryLogin(){
   const pass = $('#adminPass').value;
   if (pass === CONFIG.ADMIN_PASSWORD){
@@ -2053,6 +2209,7 @@ $('#logoutBtn').addEventListener('click', () => {
   closeModal('adminModal');
   toast('ℹ️', 'Kamu sudah logout dari admin.');
 });
+
 function openAdminPanel(){
   renderAdminPreviews();
   renderGalleryAdmin();
@@ -2073,6 +2230,7 @@ function renderGalleryAdmin(){
   `).join('');
   if (state.gallery.length < 8) html += `<div class="gallery-admin-add" id="galleryAddBtn">+</div>`;
   grid.innerHTML = html;
+
   const addBtn = $('#galleryAddBtn');
   if (addBtn) addBtn.addEventListener('click', () => $('#fileGallery').click());
   $$('[data-remove-gallery]').forEach(btn => {
@@ -2093,6 +2251,7 @@ function status(msg, type){
   clearTimeout(el._t);
   el._t = setTimeout(() => { el.className = 'admin-status'; }, 3200);
 }
+
 async function handleSingleUpload(file, kind, maxSize){
   try{
     const data = await compressImage(file, maxSize, 0.85);
@@ -2103,12 +2262,13 @@ async function handleSingleUpload(file, kind, maxSize){
     status('Berhasil diupload!', 'ok');
   }catch(err){ status('Gagal: ' + err.message, 'err'); }
 }
+
 $('#fileProfile').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; handleSingleUpload(f, 'profile', 600); e.target.value = ''; });
 $('#fileSchool').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; handleSingleUpload(f, 'school', 500); e.target.value = ''; });
 $('#fileCampus').addEventListener('change', e => { const f = e.target.files[0]; if (!f) return; handleSingleUpload(f, 'campus', 500); e.target.value = ''; });
 $('#fileGallery').addEventListener('change', async e => {
   const files = [...e.target.files].slice(0, 8 - state.gallery.length);
-  if (files.length === 0){ status('Galeri penuh.', 'err'); e.target.value = ''; return; }
+  if (files.length === 0){ status('Galeri penuh (maks 8 foto).', 'err'); e.target.value = ''; return; }
   for (const f of files){
     try{ state.gallery.push(await compressImage(f, 700, 0.82)); }catch(err){ console.warn(err); }
   }
@@ -2118,23 +2278,23 @@ $('#fileGallery').addEventListener('change', async e => {
   status(`${files.length} foto ditambahkan.`, 'ok');
   e.target.value = '';
 });
+
 $$('[data-clear]').forEach(btn => {
   btn.addEventListener('click', () => {
     const kind = btn.dataset.clear;
-    if (kind === 'profile'){ state.profile = ASSETS.profile; removeItem(STORAGE.profile); renderProfile(); }
-    if (kind === 'school'){ state.schoolLogo = ASSETS.schoolLogo; removeItem(STORAGE.schoolLogo); renderLogos(); }
-    if (kind === 'campus'){ state.campusLogo = ASSETS.targetCampus; removeItem(STORAGE.campusLogo); renderLogos(); }
+    if (kind === 'profile'){ state.profile = null; removeItem(STORAGE.profile); renderProfile(); }
+    if (kind === 'school'){ state.schoolLogo = null; removeItem(STORAGE.schoolLogo); renderLogos(); }
+    if (kind === 'campus'){ state.campusLogo = null; removeItem(STORAGE.campusLogo); renderLogos(); }
     renderAdminPreviews();
-    status('Data dikembalikan ke default.', 'ok');
+    status('Data dihapus.', 'ok');
   });
 });
+
 $('#resetAllBtn').addEventListener('click', () => {
-  if (!confirm('Yakin ingin reset SEMUA data?')) return;
+  if (!confirm('Yakin ingin reset SEMUA data? Tindakan ini tidak bisa dibatalkan.')) return;
   Object.values(STORAGE).forEach(k => removeItem(k));
-  state.profile = ASSETS.profile;
-  state.schoolLogo = ASSETS.schoolLogo;
-  state.campusLogo = ASSETS.targetCampus;
-  state.gallery = ASSETS.gallery.slice();
+  state.votes = 0; state.supporters = [];
+  state.profile = null; state.schoolLogo = null; state.campusLogo = null; state.gallery = [];
   renderAll();
   renderAdminPreviews();
   renderGalleryAdmin();
@@ -2143,16 +2303,10 @@ $('#resetAllBtn').addEventListener('click', () => {
 
 function setupReveal(){
   const els = $$('.reveal');
-  if (!('IntersectionObserver' in window)){
-    els.forEach(el => el.classList.add('in'));
-    return;
-  }
+  if (!('IntersectionObserver' in window)){ els.forEach(el => el.classList.add('in')); return; }
   const io = new IntersectionObserver(entries => {
     entries.forEach(en => {
-      if (en.isIntersecting){
-        en.target.classList.add('in');
-        io.unobserve(en.target);
-      }
+      if (en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
   els.forEach(el => io.observe(el));
@@ -2163,11 +2317,39 @@ $('#voteCtaBtn').addEventListener('click', openVoteModal);
 $('#heroShareBtn').addEventListener('click', sharePage);
 $('#voteShareBtn').addEventListener('click', sharePage);
 
+function updateLiveStatus(){
+  const badge = $('#liveBadge');
+  const text = $('#liveText');
+  if (navigator.onLine){ badge.classList.remove('offline'); text.textContent = 'Live counting'; }
+  else { badge.classList.add('offline'); text.textContent = 'Offline'; }
+}
+window.addEventListener('online', updateLiveStatus);
+window.addEventListener('offline', updateLiveStatus);
+
 function init(){
   $('#year').textContent = new Date().getFullYear();
+
+  ['profile','schoolLogo','campusLogo','gallery'].forEach(k => {
+    const raw = localStorage.getItem(STORAGE[k]);
+    if (raw !== null){
+      try{
+        const val = JSON.parse(raw);
+        if (val === null || val === undefined || (Array.isArray(val) && val.length === 0) || (typeof val === 'string' && val.trim() === '')){
+          localStorage.removeItem(STORAGE[k]);
+        }
+      }catch{ localStorage.removeItem(STORAGE[k]); }
+    }
+  });
+
+  state.profile = safeGet(STORAGE.profile, ASSETS.profile);
+  state.schoolLogo = safeGet(STORAGE.schoolLogo, ASSETS.schoolLogo);
+  state.campusLogo = safeGet(STORAGE.campusLogo, ASSETS.targetCampus);
+  state.gallery = safeGet(STORAGE.gallery, ASSETS.gallery.slice());
+
   renderAll();
   applyVoteState();
   setupReveal();
+  updateLiveStatus();
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
 else init();
