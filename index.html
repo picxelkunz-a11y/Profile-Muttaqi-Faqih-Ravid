@@ -619,531 +619,72 @@ a:hover{ text-decoration:underline; }
   padding:16px;
   background:linear-gradient(160deg,#FFFFFF 0%,#FFFDF5 100%);
   border:1px solid rgba(218,165,32,.28);
-  border-radius:var(--radiize:13px; border-radius:11px; }
-
-.btn.is-done{
-  background:linear-gradient(135deg,#DBEAFE 0%,#BFDBFE 100%) !important;
-  color:#1E3A8A !important;
-  cursor:not-allowed !important;
-  opacity:.95;
-  box-shadow:0 4px 12px rgba(147,197,253,.35) !important;
-  pointer-events:none;
-}
-.btn.is-done::before{ content:"✓ "; margin-right:2px; font-weight:700; }
-
-/* ============================================================
-   6. STATS + PROGRESS
-   ============================================================ */
-.stats-grid{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  gap:12px; margin-bottom:20px;
-}
-@media (min-width:720px){
-  .stats-grid{ grid-template-columns:repeat(4, minmax(0,1fr)); gap:16px; }
-}
-.stat-card{
-  background:var(--surface);
-  border:1px solid var(--line);
   border-radius:var(--radius);
-  padding:16px 14px;
-  box-shadow:var(--shadow-xs);
-  position:relative; overflow:hidden;
-  transition:transform .22s, box-shadow .22s, border-color .22s;
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
 }
-.stat-card::before{
-  content:''; position:absolute; top:0; left:0; right:0; height:2px;
-  background:var(--grad-primary); opacity:.9;
+.excellence-item:hover{
+  transform:translateY(-3px);
+  border-color:rgba(218,165,32,.6);
+  box-shadow:0 10px 24px rgba(218,165,32,.15);
 }
-.stat-card:hover{
-  transform:translateY(-2px);
-  box-shadow:var(--shadow-sm);
-  border-color:var(--blue-200);
-}
-.stat-ico{
-  font-size:16px; line-height:1; margin-bottom:10px;
-  width:32px; height:32px;
-  display:flex; align-items:center; justify-content:center;
-  border-radius:10px;
-  background:var(--blue-50);
-  color:var(--blue-700);
-}
-.stat-num{
-  font-family:var(--font-display);
-  font-size:clamp(22px, 4.8vw, 30px);
-  font-weight:700; letter-spacing:-.03em;
-  color:var(--ink); line-height:1.05;
-  font-variant-numeric:tabular-nums;
-}
-.stat-label{
-  font-size:11px; font-weight:600;
-  color:var(--ink-4);
-  text-transform:uppercase; letter-spacing:.1em;
-  margin-top:4px;
-}
-.progress-wrap{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:18px 20px;
-  box-shadow:var(--shadow-xs);
-}
-.progress-top{
-  display:flex; align-items:baseline; justify-content:space-between; gap:12px;
-  margin-bottom:12px; flex-wrap:wrap;
-}
-.progress-top .label{
-  font-family:var(--font-display);
-  font-size:14px; font-weight:600; color:var(--ink);
-}
-.progress-top .value{
-  font-family:var(--font-display);
-  font-size:14px; font-weight:600; color:var(--blue-600);
-  font-variant-numeric:tabular-nums;
-}
-.progress-track{
-  height:10px; border-radius:var(--radius-pill);
-  background:#EEF4FB; overflow:hidden; position:relative;
-  box-shadow:inset 0 1px 2px rgba(15,23,42,.04);
-}
-.progress-fill{
-  height:100%; width:0%;
-  border-radius:var(--radius-pill);
-  background:var(--grad-primary);
-  transition:width 1.2s cubic-bezier(.22,1,.36,1);
-  position:relative; overflow:hidden;
-}
-.progress-fill::after{
-  content:''; position:absolute; inset:0;
-  background:linear-gradient(90deg, transparent, rgba(255,255,255,.6), transparent);
-  transform:translateX(-100%);
-  animation:shimmer 2.8s ease-in-out infinite;
-}
-@keyframes shimmer{ 0%{transform:translateX(-100%)} 60%,100%{transform:translateX(200%)} }
-.progress-foot{
-  display:flex; justify-content:space-between; align-items:center; gap:10px;
-  font-size:12.5px; color:var(--ink-4);
-  margin-top:10px; flex-wrap:wrap;
-}
-.progress-foot strong{ color:var(--ink-2); font-weight:600; }
 
-/* ============================================================
-   7. PROFILE
-   ============================================================ */
-.profile-card{
-  display:flex; flex-direction:column; align-items:center; text-align:center;
-  gap:24px;
-}
-@media (min-width:780px){
-  .profile-card{
-    flex-direction:row; align-items:flex-start; text-align:left;
-    gap:36px;
-  }
-}
-.photo-zone{
+.excellence-icon{
   flex:0 0 auto;
-  display:flex; flex-direction:column; align-items:center; gap:14px;
+  width:44px;
+  height:44px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#FFF9E0,#FFEFB8);
+  border:1px solid rgba(218,165,32,.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  line-height:1;
+  box-shadow:0 3px 8px rgba(218,165,32,.15);
 }
-.photo-frame{
-  width:clamp(140px, 34vw, 200px);
-  height:clamp(140px, 34vw, 200px);
-  border-radius:var(--radius-lg);
-  position:relative;
-  background:var(--grad-soft);
-  border:1px solid var(--line);
-  box-shadow:var(--shadow-md);
-  display:flex; align-items:center; justify-content:center;
-  overflow:hidden;
-  transition:transform .25s;
-}
-.photo-frame:hover{ transform:scale(1.02); }
-.photo-frame::before{
-  content:''; position:absolute; inset:0;
-  background:
-    linear-gradient(rgba(148,163,184,.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148,163,184,.06) 1px, transparent 1px);
-  background-size:14px 14px;
-  pointer-events:none;
-}
-.photo-frame img{
-  position:relative; z-index:1;
-  width:100%; height:100%; object-fit:cover;
-}
-.photo-placeholder{
-  position:relative; z-index:1;
+
+.excellence-title{
   font-family:var(--font-display);
-  font-size:clamp(34px, 9vw, 48px);
-  font-weight:700; color:var(--blue-400); line-height:1;
+  font-size:14.5px;
+  font-weight:700;
+  color:#8B6914;
+  margin:0 0 4px;
+  letter-spacing:-.01em;
 }
-.badge-nominated{
-  display:inline-flex; align-items:center; gap:8px;
-  font-family:var(--font-display);
-  font-size:11px; font-weight:600;
-  letter-spacing:.12em; text-transform:uppercase;
-  padding:7px 14px;
-  border-radius:var(--radius-pill);
-  color:var(--blue-800);
-  background:linear-gradient(135deg,#DBEAFE,#EFF6FF);
-  border:1px solid var(--blue-200);
-  box-shadow:0 2px 8px rgba(37,99,235,.08);
-}
-.badge-nominated .badge-dot{
-  width:6px; height:6px; border-radius:50%;
-  background:var(--blue-500);
-}
-.profile-info{ flex:1 1 auto; min-width:0; width:100%; }
-.profile-name{
-  font-family:var(--font-display);
-  font-size:clamp(24px, 5.2vw, 38px);
-  font-weight:700; letter-spacing:-.03em;
-  line-height:1.1; margin:14px 0 14px;
-  color:var(--ink); word-break:break-word;
-}
-.profile-meta{
-  display:flex; flex-wrap:wrap; gap:8px;
-  justify-content:center; margin-bottom:20px;
-}
-@media (min-width:780px){ .profile-meta{ justify-content:flex-start; } }
-.chip{
-  display:inline-flex; align-items:center; gap:7px;
-  font-size:12.5px; font-weight:500;
+.excellence-text{
+  font-size:13px;
+  line-height:1.55;
   color:var(--ink-3);
-  background:var(--surface);
-  border:1px solid var(--line);
-  padding:7px 12px;
-  border-radius:var(--radius-pill);
-  box-shadow:var(--shadow-xs);
-  max-width:100%;
+  margin:0;
 }
-.chip .chip-ico{ font-size:14px; line-height:1; }
-.chip.school-chip img{
-  width:18px; height:18px; object-fit:contain; border-radius:4px;
-}
-.chip.school-chip .fallback{ font-size:13px; }
-.profile-quote{
+
+.excellence-quote{
   font-family:var(--font-display);
-  font-size:15px; line-height:1.6; font-weight:500;
-  color:var(--ink-2);
-  background:var(--blue-50);
-  border-left:3px solid var(--blue-500);
+  font-size:14.5px;
+  font-weight:500;
+  font-style:italic;
+  line-height:1.65;
+  color:#5C4A1A;
+  background:linear-gradient(135deg,#FFFDF5,#FFF8E0);
+  border-left:3px solid #DAA520;
   border-radius:0 var(--radius) var(--radius) 0;
   padding:16px 20px;
-  margin:0; text-align:left;
+  margin:0;
   letter-spacing:-.005em;
-}
-
-/* ============================================================
-   8. LOGOS
-   ============================================================ */
-.dual-grid{
-  display:grid; grid-template-columns:1fr; gap:16px;
-}
-@media (min-width:720px){
-  .dual-grid{ grid-template-columns:1fr 1fr; gap:20px; }
-}
-.logo-card{
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius-lg);
-  padding:24px;
-  box-shadow:var(--shadow-xs);
-  display:flex; flex-direction:column; align-items:center; text-align:center;
-  gap:16px;
-  transition:transform .22s, box-shadow .22s, border-color .22s;
-}
-.logo-card:hover{
-  transform:translateY(-3px);
-  box-shadow:var(--shadow-md);
-  border-color:var(--blue-200);
-}
-.logo-box{
-  width:100%; max-width:240px;
-  aspect-ratio:16 / 10;
-  background:var(--surface-2);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  display:flex; align-items:center; justify-content:center;
-  padding:18px; overflow:hidden; position:relative;
-}
-.logo-box::before{
-  content:''; position:absolute; inset:0;
-  background:
-    linear-gradient(rgba(148,163,184,.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148,163,184,.08) 1px, transparent 1px);
-  background-size:12px 12px;
-  pointer-events:none;
-}
-.logo-box img{
-  position:relative; z-index:1;
-  max-width:100%; max-height:100%;
-  width:auto; height:auto; object-fit:contain;
-}
-.logo-fallback{
-  position:relative; z-index:1;
-  font-family:var(--font-display);
-  font-size:38px; font-weight:700;
-  color:var(--blue-300); line-height:1;
-  letter-spacing:-.03em;
-}
-.logo-card h3{
-  font-family:var(--font-display);
-  font-size:17px; font-weight:600;
-  letter-spacing:-.015em;
-  margin:0; color:var(--ink);
-}
-.logo-card .logo-sub{
-  font-size:13px; color:var(--ink-4);
-  margin:0; line-height:1.5;
-}
-.logo-card .logo-sub em{ font-style:italic; color:var(--ink-3); }
-
-/* ============================================================
-   9. GALLERY
-   ============================================================ */
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  gap:12px;
-}
-@media (min-width:720px){
-  .gallery{ grid-template-columns:repeat(3, minmax(0,1fr)); gap:16px; }
-}
-.gallery-item{
-  position:relative; aspect-ratio:1 / 1;
-  border-radius:var(--radius);
-  overflow:hidden;
-  background:var(--surface-2);
-  border:1px solid var(--line);
-  box-shadow:var(--shadow-xs);
-  transition:transform .3s ease, box-shadow .3s ease;
-}
-.gallery-item::before{
-  content:''; position:absolute; inset:0; z-index:0;
-  background:
-    linear-gradient(rgba(148,163,184,.08) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(148,163,184,.08) 1px, transparent 1px);
-  background-size:14px 14px;
-}
-.gallery-item img{
-  position:relative; z-index:1;
-  width:100%; height:100%; object-fit:cover;
-  transition:transform .5s cubic-bezier(.22,1,.36,1);
-}
-.gallery-item:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
-.gallery-item:hover img{ transform:scale(1.06); }
-.gallery-item .gallery-ph{
-  position:absolute; inset:0; z-index:1;
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:6px; color:var(--ink-5);
-  font-family:var(--font-display);
-  font-size:11px; font-weight:500;
-  letter-spacing:.1em; text-transform:uppercase;
-}
-.gallery-item .gallery-ph .ph-ico{ font-size:22px; opacity:.5; }
-
-/* ============================================================
-   10. VOTE CTA
-   ============================================================ */
-.vote-card{
-  position:relative;
-  background:linear-gradient(135deg,#0B1220 0%, #172554 55%, #1E3A8A 100%);
-  border-radius:var(--radius-lg);
-  padding:clamp(28px, 5vw, 48px) clamp(20px, 4vw, 44px);
-  overflow:hidden; color:#fff;
-  box-shadow:var(--shadow-lg); text-align:center;
-}
-.vote-card::before{
-  content:''; position:absolute; inset:0;
-  background:
-    radial-gradient(500px 220px at 15% 10%, rgba(56,189,248,.28), transparent 60%),
-    radial-gradient(500px 220px at 90% 90%, rgba(96,165,250,.22), transparent 60%);
-  pointer-events:none;
-}
-.vote-card::after{
-  content:''; position:absolute; inset:0;
-  background:
-    linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
-  background-size:32px 32px;
-  pointer-events:none;
-  mask-image:radial-gradient(circle at center, black, transparent 78%);
-  -webkit-mask-image:radial-gradient(circle at center, black, transparent 78%);
-}
-.vote-inner{ position:relative; z-index:1; max-width:600px; margin:0 auto; }
-.vote-eyebrow{
-  display:inline-flex; align-items:center; gap:8px;
-  font-family:var(--font-display);
-  font-size:11px; font-weight:600;
-  letter-spacing:.16em; text-transform:uppercase;
-  color:#93C5FD;
-  padding:6px 12px;
-  border:1px solid rgba(147,197,253,.35);
-  border-radius:var(--radius-pill);
-  background:rgba(59,130,246,.12);
-  margin-bottom:18px;
-}
-.vote-eyebrow .dot{
-  width:6px;height:6px;border-radius:50%;
-  background:#38BDF8;
-  box-shadow:0 0 12px #38BDF8;
-}
-.vote-card h2{
-  font-family:var(--font-display);
-  font-size:clamp(24px, 4.5vw, 38px);
-  font-weight:700; letter-spacing:-.03em;
-  line-height:1.1; margin:0 0 12px;
-}
-.vote-card p{
-  font-size:15px; line-height:1.6;
-  color:#BFDBFE; margin:0 0 26px;
-}
-.vote-card .btn-primary{
-  background:linear-gradient(135deg,#3B82F6 0%,#38BDF8 100%);
-  padding:15px 28px; font-size:15px;
-  box-shadow:0 10px 26px rgba(56,189,248,.4);
-}
-.vote-card .btn-primary:hover{
-  box-shadow:0 14px 32px rgba(56,189,248,.55);
-}
-.vote-card .btn-soft{
-  background:rgba(255,255,255,.08);
-  color:#fff;
-  border:1px solid rgba(255,255,255,.2);
-  backdrop-filter:blur(8px);
-}
-.vote-card .btn-soft:hover{
-  background:rgba(255,255,255,.16);
-  border-color:rgba(255,255,255,.32);
-}
-.vote-cta{
-  display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
-}
-.vote-note{
-  font-size:12.5px; color:#93C5FD;
-  margin-top:18px;
-  display:inline-flex; align-items:center; gap:6px;
-}
-
-/* ============================================================
-   11. SUPPORTERS
-   ============================================================ */
-.supporters-list{
-  display:grid;
-  grid-template-columns:1fr; gap:10px;
-}
-@media (min-width:640px){
-  .supporters-list{ grid-template-columns:repeat(2, minmax(0,1fr)); gap:12px; }
-}
-@media (min-width:960px){
-  .supporters-list{ grid-template-columns:repeat(3, minmax(0,1fr)); }
-}
-.sup-item{
-  display:flex; gap:12px; align-items:flex-start;
-  background:var(--surface);
-  border:1px solid var(--line);
-  border-radius:var(--radius);
-  padding:14px 16px;
-  box-shadow:var(--shadow-xs);
-  transition:border-color .22s, transform .22s;
-}
-.sup-item:hover{ border-color:var(--blue-200); transform:translateY(-1px); }
-.sup-avatar{
-  flex:0 0 auto;
-  width:36px; height:36px;
-  border-radius:10px;
-  background:var(--grad-primary);
-  display:flex; align-items:center; justify-content:center;
-  color:#fff;
-  font-family:var(--font-display);
-  font-weight:600; font-size:14px;
-  letter-spacing:-.02em;
-  box-shadow:0 4px 10px rgba(37,99,235,.22);
-}
-.sup-body{ min-width:0; flex:1 1 auto; }
-.sup-name{
-  font-family:var(--font-display);
-  font-size:13.5px; font-weight:600;
-  color:var(--ink); margin:0 0 2px;
-  letter-spacing:-.01em; word-break:break-word;
-}
-.sup-msg{
-  font-size:13px; color:var(--ink-3);
-  line-height:1.5; margin:0; word-break:break-word;
-}
-.sup-msg:empty{ display:none; }
-.sup-time{
-  font-size:11px; color:var(--ink-5);
-  font-weight:500; margin-top:4px;
-  letter-spacing:.02em;
-}
-.supporters-empty{
-  text-align:center; padding:40px 20px;
-  color:var(--ink-4); font-size:14px;
-  border:1px dashed var(--line-2);
-  border-radius:var(--radius);
-  background:var(--surface);
-}
-.supporters-empty .empty-ico{
-  font-size:28px; margin-bottom:8px;
-  display:block; opacity:.55;
-}
-
-/* ============================================================
-   11b. SUPPORTERS — COLLAPSIBLE
-   ============================================================ */
-.supporters-wrap{
-  position:relative;
-  overflow:hidden;
-  transition:max-height .6s cubic-bezier(.22,1,.36,1);
-}
-.supporters-wrap.collapsed{
-  max-height:340px;
-}
-.supporters-wrap.expanded{
-  max-height:5000px;
-}
-.supporters-fade{
-  position:absolute;
-  left:0; right:0; bottom:0;
-  height:120px;
-  background:linear-gradient(180deg, rgba(246,249,254,0) 0%, var(--bg) 85%);
-  pointer-events:none;
-  opacity:1;
-  transition:opacity .4s ease;
-}
-.supporters-wrap.expanded .supporters-fade{
-  opacity:0;
-}
-.supporters-actions{
-  margin-top:14px;
-  display:flex;
-  justify-content:center;
-}
-#toggleSupporters{
-  max-width:340px;
-  font-weight:600;
-  transition:transform .18s ease, box-shadow .22s ease, background .22s ease;
-}
-#toggleSupporters:hover{
-  background:var(--blue-50);
-  border-color:var(--blue-300);
-  color:var(--blue-700);
-}
-#toggleSupporters .ico{
-  transition:transform .3s ease;
-  display:inline-block;
-}
-#toggleSupporters[aria-expanded="true"] .ico{
-  transform:rotate(180deg);
+  box-shadow:inset 0 0 0 1px rgba(218,165,32,.1);
 }
 
 @media (max-width: 480px){
-  .supporters-wrap.collapsed{ max-height:320px; }
-  .supporters-fade{ height:100px; }
+  .excellence-card{ padding:18px 14px; }
+  .excellence-item{ padding:14px; gap:12px; }
+  .excellence-icon{ width:40px; height:40px; font-size:20px; }
+  .excellence-title{ font-size:14px; }
+  .excellence-text{ font-size:12.5px; }
+  .excellence-quote{ font-size:13.5px; padding:14px 16px; }
 }
 
 /* ============================================================
-   12. THE PEOPLE BEHIND MY JOURNEY
+   11. THE PEOPLE BEHIND MY JOURNEY
    ============================================================ */
 .journey-section{
   position:relative;
@@ -1560,7 +1101,7 @@ a:hover{ text-decoration:underline; }
 }
 
 /* ============================================================
-   13. FOOTER
+   12. FOOTER
    ============================================================ */
 .footer{
   position:relative; z-index:1;
@@ -1594,7 +1135,7 @@ a:hover{ text-decoration:underline; }
 .admin-trigger.active{ opacity:1; color:var(--blue-600); border-color:var(--blue-300); background:var(--blue-50); }
 
 /* ============================================================
-   14. MODAL
+   13. MODAL
    ============================================================ */
 .modal{
   position:fixed; inset:0; z-index:100;
@@ -1687,7 +1228,7 @@ a:hover{ text-decoration:underline; }
 .field .error{ font-size:12.5px; color:#DC2626; margin-top:6px; font-weight:500; }
 
 /* ============================================================
-   15. ADMIN
+   14. ADMIN
    ============================================================ */
 .admin-section{
   padding:18px 24px;
@@ -1776,7 +1317,7 @@ a:hover{ text-decoration:underline; }
 .admin-status.err{ background:#FEF2F2; color:#991B1B; border:1px solid #FECACA; }
 
 /* ============================================================
-   16. TOAST
+   15. TOAST
    ============================================================ */
 .toast-wrap{
   position:fixed;
@@ -1808,12 +1349,12 @@ a:hover{ text-decoration:underline; }
 }
 
 /* ============================================================
-   17. CONFETTI
+   16. CONFETTI
    ============================================================ */
 .confetti-canvas{ position:fixed; inset:0; z-index:150; pointer-events:none; }
 
 /* ============================================================
-   18. REVEAL
+   17. REVEAL
    ============================================================ */
 .reveal{
   opacity:0; transform:translateY(16px);
@@ -1822,7 +1363,7 @@ a:hover{ text-decoration:underline; }
 .reveal.in{ opacity:1; transform:none; }
 
 /* ============================================================
-   19. REDUCED MOTION
+   18. REDUCED MOTION
    ============================================================ */
 @media (prefers-reduced-motion: reduce){
   *,*::before,*::after{
@@ -1850,10 +1391,6 @@ a:hover{ text-decoration:underline; }
         <small>Nomination 2026</small>
       </span>
     </div>
-    <div class="live-badge" id="liveBadge">
-      <span class="pulse"></span>
-      <span id="liveText">Live counting</span>
-    </div>
   </header>
 
   <section class="hero reveal">
@@ -1876,45 +1413,6 @@ a:hover{ text-decoration:underline; }
         <button class="btn btn-soft" id="heroShareBtn">
           <span class="ico">↗</span> Bagikan
         </button>
-      </div>
-    </div>
-  </section>
-
-  <section class="section reveal">
-    <div class="stats-grid">
-      <div class="stat-card">
-        <div class="stat-ico">✦</div>
-        <div class="stat-num" id="statVotes">0</div>
-        <div class="stat-label">Total Votes</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-ico">◎</div>
-        <div class="stat-num" id="statTarget">1.000</div>
-        <div class="stat-label">Target</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-ico">◐</div>
-        <div class="stat-num" id="statPercent">0%</div>
-        <div class="stat-label">Progress</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-ico">⌘</div>
-        <div class="stat-num" id="statSupporters">0</div>
-        <div class="stat-label">Supporters</div>
-      </div>
-    </div>
-
-    <div class="progress-wrap">
-      <div class="progress-top">
-        <span class="label">Progress menuju target</span>
-        <span class="value" id="progressValue">0 / 1.000</span>
-      </div>
-      <div class="progress-track">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
-      <div class="progress-foot">
-        <span>Terus dukung sampai <strong>1.000 votes</strong></span>
-        <span id="progressRemain">1.000 votes lagi</span>
       </div>
     </div>
   </section>
@@ -2011,21 +1509,38 @@ a:hover{ text-decoration:underline; }
 
   <section class="section reveal">
     <div class="section-head">
-      <span class="section-eyebrow">Dinding Dukungan</span>
-      <h2 class="section-title">Kata mereka.</h2>
-      <p class="section-sub">Pesan-pesan kecil dari orang-orang yang mendukung perjalanan ini.</p>
+      <span class="section-eyebrow">Murid Unggulan</span>
+      <h2 class="section-title">Kenapa Muttaqi layak jadi <span class="gold-text">Murid Unggulan</span>?</h2>
+      <p class="section-sub">Bukan sekadar pintar di kelas — tapi juga punya semangat, karakter, dan mimpi yang besar.</p>
     </div>
 
-    <div class="supporters-wrap collapsed" id="supportersWrap">
-      <div class="supporters-list" id="supportersList"></div>
-      <div class="supporters-fade" aria-hidden="true"></div>
-    </div>
+    <div class="excellence-card">
+      <div class="excellence-grid">
+        <div class="excellence-item">
+          <div class="excellence-icon">🎓</div>
+          <h3 class="excellence-title">Akademik</h3>
+          <p class="excellence-text">Konsisten belajar & aktif di kelas XII SEKOLAH WASKITO.</p>
+        </div>
+        <div class="excellence-item">
+          <div class="excellence-icon">🌎</div>
+          <h3 class="excellence-title">Visi Global</h3>
+          <p class="excellence-text">Bermimpi menempuh pendidikan di luar negeri untuk pengalaman lebih luas.</p>
+        </div>
+        <div class="excellence-item">
+          <div class="excellence-icon">🤝</div>
+          <h3 class="excellence-title">Karakter</h3>
+          <p class="excellence-text">Aktif di kelompok SATYA MADA KARA, senang bekerja sama, dan peduli sekitar.</p>
+        </div>
+        <div class="excellence-item">
+          <div class="excellence-icon">🚀</div>
+          <h3 class="excellence-title">Semangat</h3>
+          <p class="excellence-text">Berani ambil kesempatan, terus belajar, dan tidak mudah menyerah.</p>
+        </div>
+      </div>
 
-    <div class="supporters-actions">
-      <button class="btn btn-soft btn-block" id="toggleSupporters" type="button" aria-expanded="false" aria-controls="supportersWrap">
-        <span class="ico">👀</span>
-        <span id="toggleSupportersText">Lihat semua dukungan</span>
-      </button>
+      <blockquote class="excellence-quote">
+        "Menjadi <span class="gold-text">murid unggulan</span> bukan tentang menjadi sempurna — tapi tentang terus berusaha menjadi versi terbaik dari diri sendiri. ✨"
+      </blockquote>
     </div>
   </section>
 
@@ -2053,9 +1568,9 @@ a:hover{ text-decoration:underline; }
       </h2>
 
       <blockquote class="journey-quote">
-        “Setiap pencapaian tidak pernah lahir dari perjuangan seorang diri.
+        "Setiap pencapaian tidak pernah lahir dari perjuangan seorang diri.
         Di balik perjalanan ini, ada mereka yang telah memberikan dukungan,
-        kepercayaan, semangat, dan doa hingga saya dapat melangkah sejauh ini. ✨”
+        kepercayaan, semangat, dan doa hingga saya dapat melangkah sejauh ini. ✨"
       </blockquote>
 
       <p class="journey-mention">
@@ -2235,7 +1750,6 @@ a:hover{ text-decoration:underline; }
    ============================================================ */
 const CONFIG = {
   ADMIN_PASSWORD: 'Mut2025!',
-  TARGET: 1000,
   ADMIN_CLICK_COUNT: 1
 };
 
@@ -2255,7 +1769,6 @@ const firebaseConfig = {
   measurementId: "G-8QG5TQY390"
 };
 
-/* ── Init Firebase dengan retry ── */
 let db = null;
 
 function initFirebase(){
@@ -2279,15 +1792,10 @@ function initFirebase(){
 
 initFirebase();
 
-// Kalau gagal, retry 10x tiap 500ms
 let fbRetry = 0;
 const fbTimer = setInterval(() => {
   if (db || fbRetry >= 10){
     clearInterval(fbTimer);
-    if (db && typeof setupFirebaseListeners === 'function'){
-      setupFirebaseListeners();
-      updateLiveStatus();
-    }
     return;
   }
   fbRetry++;
@@ -2295,7 +1803,7 @@ const fbTimer = setInterval(() => {
 }, 500);
 
 /* ============================================================
-   🖼️ ASSETS — foto default dari Postimages
+   🖼️ ASSETS
    ============================================================ */
 const ASSETS = {
   profile:    "https://i.postimg.cc/VNzmkNjS/IMG-20260923-204539.jpg",
@@ -2364,8 +1872,6 @@ const VoteGuard = (() => {
    💾 STORAGE KEYS
    ============================================================ */
 const STORAGE = {
-  votes: 'bsa_votes_v1',
-  supporters: 'bsa_supporters_v1',
   profile: 'bsa_profile_v1',
   schoolLogo: 'bsa_school_logo_v1',
   campusLogo: 'bsa_campus_logo_v1',
@@ -2383,7 +1889,6 @@ const appreciationPeople = [
    ============================================================ */
 const $ = (s, c=document) => c.querySelector(s);
 const $$ = (s, c=document) => [...c.querySelectorAll(s)];
-const fmt = n => n.toLocaleString('id-ID');
 
 function getItem(key, fallback){
   try{ const raw = localStorage.getItem(key); return raw ? JSON.parse(raw) : fallback; }
@@ -2395,31 +1900,10 @@ function setItem(key, value){
 }
 function removeItem(key){ try{ localStorage.removeItem(key); }catch{} }
 
-function safeGet(key, fallback){
-  const val = getItem(key, undefined);
-  if (val === undefined || val === null) return fallback;
-  if (Array.isArray(val) && val.length === 0) return fallback;
-  if (typeof val === 'string' && val.trim() === '') return fallback;
-  return val;
-}
-
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
   }[m]));
-}
-function timeAgo(ts){
-  const s = Math.floor((Date.now() - ts)/1000);
-  if (s < 60) return 'baru saja';
-  const m = Math.floor(s/60);
-  if (m < 60) return `${m} menit lalu`;
-  const h = Math.floor(m/60);
-  if (h < 24) return `${h} jam lalu`;
-  const d = Math.floor(h/24);
-  if (d < 30) return `${d} hari lalu`;
-  const mo = Math.floor(d/30);
-  if (mo < 12) return `${mo} bulan lalu`;
-  return `${Math.floor(mo/12)} tahun lalu`;
 }
 
 /* ============================================================
@@ -2523,11 +2007,9 @@ function compressImage(file, maxSize=600, quality=0.85){
 }
 
 /* ============================================================
-   STATE — Foto SELALU dari ASSETS (anti-hilang di Samsung)
+   STATE
    ============================================================ */
 const state = {
-  votes: safeGet(STORAGE.votes, 0),
-  supporters: safeGet(STORAGE.supporters, []),
   profile: ASSETS.profile,
   schoolLogo: ASSETS.schoolLogo,
   campusLogo: ASSETS.targetCampus,
@@ -2535,7 +2017,6 @@ const state = {
   isAdmin: false
 };
 
-// Override dengan upload lokal (kalau ada)
 const uploadedProfile = getItem(STORAGE.profile, null);
 const uploadedSchool = getItem(STORAGE.schoolLogo, null);
 const uploadedCampus = getItem(STORAGE.campusLogo, null);
@@ -2552,29 +2033,6 @@ if (uploadedCampus && typeof uploadedCampus === 'string' && uploadedCampus.lengt
 }
 if (Array.isArray(uploadedGallery) && uploadedGallery.length > 0){
   state.gallery = uploadedGallery;
-}
-
-/* ============================================================
-   RENDER: STATS + PROGRESS
-   ✅ Votes pakai field `votes` (bisa di-set manual 206)
-   ✅ Supporters dihitung dari jumlah item
-   ============================================================ */
-function renderStats(){
-  const votes = state.votes;                       // ← dari field votes (manual, bisa 206)
-  const supporterCount = state.supporters.length;   // ← jumlah supporter
-  const target = CONFIG.TARGET;
-  const pct = Math.min(100, (votes / target) * 100);
-  const remain = Math.max(0, target - votes);
-
-  $('#statVotes').textContent = fmt(votes);
-  $('#statTarget').textContent = fmt(target);
-  $('#statPercent').textContent = pct.toFixed(pct >= 10 ? 0 : 1) + '%';
-  $('#statSupporters').textContent = fmt(supporterCount);
-  $('#progressValue').textContent = `${fmt(votes)} / ${fmt(target)}`;
-  $('#progressRemain').textContent = remain > 0 ? `${fmt(remain)} votes lagi` : '🎉 Target tercapai!';
-
-  const fill = $('#progressFill');
-  requestAnimationFrame(() => { fill.style.width = pct + '%'; });
 }
 
 /* ============================================================
@@ -2615,79 +2073,6 @@ function renderGallery(){
     }
   }
   el.innerHTML = html;
-}
-
-/* ============================================================
-   RENDER: SUPPORTERS
-   ============================================================ */
-function renderSupporters(){
-  const el = $('#supportersList');
-  const wrap = $('#supportersWrap');
-  const actions = document.querySelector('.supporters-actions');
-  const list = [...state.supporters].sort((a,b) => b.ts - a.ts);
-
-  if (list.length === 0){
-    el.innerHTML = `
-      <div class="supporters-empty" style="grid-column:1/-1">
-        <span class="empty-ico">💬</span>
-        Belum ada dukungan. Jadi yang pertama!
-      </div>`;
-    if (wrap) wrap.classList.remove('collapsed');
-    if (actions) actions.style.display = 'none';
-    return;
-  }
-
-  if (actions) actions.style.display = '';
-
-  // Kalau supporter ≤ 4 → langsung tampil semua, tombol hide
-  if (list.length <= 4){
-    if (wrap){
-      wrap.classList.remove('collapsed');
-      wrap.classList.add('expanded');
-    }
-    if (actions) actions.style.display = 'none';
-  }
-
-  el.innerHTML = list.slice(0, 50).map(s => {
-    const initial = (s.name || 'A').trim().charAt(0).toUpperCase() || 'A';
-    return `
-      <div class="sup-item">
-        <div class="sup-avatar">${initial}</div>
-        <div class="sup-body">
-          <p class="sup-name">${escapeHtml(s.name || 'Anonim')}</p>
-          ${s.msg ? `<p class="sup-msg">${escapeHtml(s.msg)}</p>` : ''}
-          <div class="sup-time">${timeAgo(s.ts)}</div>
-        </div>
-      </div>`;
-  }).join('');
-}
-
-/* ============================================================
-   SUPPORTERS — TOGGLE COLLAPSE / EXPAND
-   ============================================================ */
-function setupSupportersToggle(){
-  const wrap = $('#supportersWrap');
-  const btn = $('#toggleSupporters');
-  const btnText = $('#toggleSupportersText');
-
-  if (!wrap || !btn || !btnText) return;
-
-  btn.addEventListener('click', () => {
-    const isExpanded = wrap.classList.contains('expanded');
-
-    if (isExpanded){
-      wrap.classList.remove('expanded');
-      wrap.classList.add('collapsed');
-      btn.setAttribute('aria-expanded', 'false');
-      btnText.textContent = 'Lihat semua dukungan';
-      wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      wrap.classList.remove('collapsed');
-      wrap.classList.add('expanded');
-      btn.setAttribute('aria-expanded', 'true');
-      btnText.textContent = 'Sembunyikan';
-    }
-  });
 }
 
 /* ============================================================
@@ -2773,11 +2158,9 @@ function heartBurst(card){
    RENDER ALL
    ============================================================ */
 function renderAll(){
-  renderStats();
   renderProfile();
   renderLogos();
   renderGallery();
-  renderSupporters();
   renderJourney();
 }
 
@@ -2807,7 +2190,7 @@ document.addEventListener('keydown', e => {
 });
 
 /* ============================================================
-   VOTE FLOW — 1 orang 1 vote
+   VOTE FLOW
    ============================================================ */
 function openVoteModal(){
   if (VoteGuard.hasVoted()){
@@ -2852,14 +2235,6 @@ async function submitVote(){
     if (db){
       await db.ref('supporters/' + supporter.id).set(supporter);
       await db.ref('votes').transaction(v => (v || 0) + 1);
-    } else {
-      state.votes += 1;
-      state.supporters.push(supporter);
-      if (state.supporters.length > 200) state.supporters = state.supporters.slice(-200);
-      setItem(STORAGE.votes, state.votes);
-      setItem(STORAGE.supporters, state.supporters);
-      renderStats();
-      renderSupporters();
     }
 
     VoteGuard.markVoted();
@@ -2883,7 +2258,7 @@ $('#voterName').addEventListener('keydown', e => {
 });
 
 /* ============================================================
-   🔒 APPLY VOTE STATE
+   APPLY VOTE STATE
    ============================================================ */
 function applyVoteState(){
   if (!VoteGuard.hasVoted()) return;
@@ -3064,7 +2439,6 @@ $$('[data-clear]').forEach(btn => {
 $('#resetAllBtn').addEventListener('click', () => {
   if (!confirm('Yakin ingin reset SEMUA data?')) return;
   Object.values(STORAGE).forEach(k => removeItem(k));
-  state.votes = 0; state.supporters = [];
   state.profile = ASSETS.profile;
   state.schoolLogo = ASSETS.schoolLogo;
   state.campusLogo = ASSETS.targetCampus;
@@ -3104,51 +2478,6 @@ $('#heroShareBtn').addEventListener('click', sharePage);
 $('#voteShareBtn').addEventListener('click', sharePage);
 
 /* ============================================================
-   LIVE STATUS
-   ============================================================ */
-function updateLiveStatus(){
-  const badge = $('#liveBadge');
-  const text = $('#liveText');
-  if (db){
-    badge.classList.remove('offline');
-    text.textContent = '🔥 Realtime';
-  } else if (navigator.onLine){
-    badge.classList.remove('offline');
-    text.textContent = 'Live counting';
-  } else {
-    badge.classList.add('offline');
-    text.textContent = 'Offline';
-  }
-}
-window.addEventListener('online', updateLiveStatus);
-window.addEventListener('offline', updateLiveStatus);
-
-/* ============================================================
-   🔥 FIREBASE REALTIME LISTENERS
-   ============================================================ */
-function setupFirebaseListeners(){
-  if (!db) return;
-
-  db.ref('votes').on('value', snap => {
-    state.votes = snap.val() || 0;
-    renderStats();
-  }, err => {
-    console.warn('Votes listener error:', err);
-  });
-
-  db.ref('supporters').limitToLast(100).on('value', snap => {
-    const data = snap.val() || {};
-    state.supporters = Object.values(data).sort((a,b) => b.ts - a.ts);
-    renderSupporters();
-    renderStats();
-  }, err => {
-    console.warn('Supporters listener error:', err);
-  });
-
-  console.log('🔥 Realtime listeners aktif');
-}
-
-/* ============================================================
    INIT
    ============================================================ */
 function init(){
@@ -3157,12 +2486,6 @@ function init(){
   renderAll();
   applyVoteState();
   setupReveal();
-  setupSupportersToggle();
-  updateLiveStatus();
-
-  if (db){
-    setupFirebaseListeners();
-  }
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
 else init();
